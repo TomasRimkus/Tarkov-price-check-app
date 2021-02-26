@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:Tarkov_price_check_app.ViewModels;assembly=Tarkov price check app" xmlns:viewModels1="clr-namespace:Tarkov_price_check_app.ViewModels"
+             x:Class="Tarkov_price_check_app.Views.PriceCheckPage">
+    <ContentPage.BindingContext>
+        <viewModels1:MainViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+
+
+            <Label 
+                Text="{Binding SearchResults, UpdateSourceEventName=PropertyChanged, Mode=OneWay}"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="Large"
+            />
+
+            <SearchBar
+                Placeholder="Search items"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" 
+                 x:Name="SearchBar" SearchCommand="{Binding SearchCommand}" SearchCommandParameter="{Binding Text, Source={x:Reference SearchBar}}"
+                />
+
+            <ListView  
+                ItemsSource="{Binding ObsCollResults}"
+                IsPullToRefreshEnabled="True"  
+                x:Name="Results" 
+                HasUnevenRows="true" 
+                SeparatorVisibility="Default">
+                <ListView.ItemTemplate>
+                <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Frame>
+                                    <StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Image Source="{Binding enImg}"/>
+                                            <Label Text="Item name"/>
+                                            <Label Text="{Binding enName}"/>
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="Current Price"/>
+                                            <Label Text="{Binding price}"/>
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="Average day price"/>
+                                            <Label Text="{Binding avgDayPrice}"/>
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="Best trader to vendor"/>
+                                            <Label Text="{Binding traderName}"/>
+                                            <Label Text=" price: "/>
+                                            <Label Text="{Binding traderPrice}"/>
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="Last updated"/>
+                                            <Label Text="{Binding updated}"/>
+                                        </StackLayout>
+                                        </StackLayout>
+                                </Frame>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
