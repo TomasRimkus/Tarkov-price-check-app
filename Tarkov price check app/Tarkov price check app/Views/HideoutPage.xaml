@@ -1,13 +1,114 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels1="clr-namespace:Tarkov_price_check_app.ViewModels"
              x:Class="Tarkov_price_check_app.Views.HideoutPage">
+    <ContentPage.BindingContext>
+        <viewModels1:HideoutViewModel/>
+    </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Hideout Page"
-                   x:Name="hello" 
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Label Text="" BackgroundColor="Black"></Label>
+            <Label Text="{Binding SetStatus}"
+                   VerticalOptions="CenterAndExpand" 
+                   HorizontalOptions="CenterAndExpand" />
+
+            <Button Command="{Binding RefreshCommand}" Text="Load prices" />
+
+            <StackLayout>
+
+                <Label Text="" BackgroundColor="Black"></Label>
+
+                <ListView  
+                ItemsSource="{Binding IntelDataCollection}"
+                IsPullToRefreshEnabled="False"  
+                Header="Inteligence center"
+                HasUnevenRows="true" 
+                SeparatorVisibility="Default">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Frame>
+                                    <StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="Item name"/>
+                                            <Label Text="{Binding ResultItemName}"/>
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="Current Price"/>
+                                                <Label Text="{Binding ResultPrice}"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Frame>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+                <Label Text="" BackgroundColor="Black"></Label>
+
+                <ListView  
+                ItemsSource="{Binding LavDataCollection}"
+                IsPullToRefreshEnabled="False"  
+                Header="Lavatory"
+                HasUnevenRows="true" 
+                SeparatorVisibility="Default">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Frame>
+                                    <StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="Item name"/>
+                                            <Label Text="{Binding ResultItemName}"/>
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="Current Price"/>
+                                                <Label Text="{Binding ResultPrice}"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Frame>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+                <Label Text="" BackgroundColor="Black"></Label>
+
+                <ListView  
+                ItemsSource="{Binding WorkDataCollection}"
+                IsPullToRefreshEnabled="False"  
+                Header="Workbench"
+                HasUnevenRows="true" 
+                SeparatorVisibility="Default">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Frame>
+                                    <StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="Item name"/>
+                                            <Label Text="{Binding ResultItemName}"/>
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="Current Price"/>
+                                                <Label Text="{Binding ResultPrice}"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Frame>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+                <Label Text="" BackgroundColor="Black"></Label>
+
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

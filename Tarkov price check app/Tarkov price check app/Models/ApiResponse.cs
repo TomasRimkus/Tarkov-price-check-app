@@ -27,6 +27,5 @@ namespace Tarkov_price_check_app.Models
     {
         public string result { get; set; }
         public List<ApiResponseData> items { get; set; }
-        //public ObservableCollection<ApiResponseData> items { get; set; }
     }
 }

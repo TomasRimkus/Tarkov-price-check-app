@@ -1,12 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
-using System.Windows.Input;
-using Tarkov_price_check_app.Models;
-using Tarkov_price_check_app.Services;
-using Tarkov_price_check_app.ViewModels;
+﻿using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
