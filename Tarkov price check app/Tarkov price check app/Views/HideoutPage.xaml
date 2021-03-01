@@ -8,23 +8,24 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="" BackgroundColor="Black"></Label>
+            <Label Text="" BackgroundColor="Transparent"></Label>
             <Label Text="{Binding SetStatus}"
-                   VerticalOptions="CenterAndExpand" 
-                   HorizontalOptions="CenterAndExpand" />
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalTextAlignment="Center"
+                   FontAttributes="Bold"
+                   />
 
-            <Button Command="{Binding RefreshCommand}" Text="Load prices" />
+            <Button IsEnabled="{Binding SetButtonStatus}" Command="{Binding RefreshCommand}" Text="Refresh prices" />
 
             <StackLayout>
 
-                <Label Text="" BackgroundColor="Black"></Label>
+                <Label Text="Intelligence center" HorizontalTextAlignment="Center" FontAttributes="Bold" BackgroundColor="LightGray"></Label>
 
                 <ListView  
-                ItemsSource="{Binding IntelDataCollection}"
-                IsPullToRefreshEnabled="False"  
-                Header="Inteligence center"
-                HasUnevenRows="true" 
-                SeparatorVisibility="Default">
+                    ItemsSource="{Binding IntelDataCollection}"
+                    IsPullToRefreshEnabled="False"  
+                    HasUnevenRows="true" 
+                    SeparatorVisibility="Default">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -36,8 +37,8 @@
                                             <Label Text="{Binding ResultItemName}"/>
                                         </StackLayout>
                                         <StackLayout Orientation="Horizontal">
-                                            <Label Text="Current Price"/>
-                                                <Label Text="{Binding ResultPrice}"/>
+                                            <Label Text="Current profit"/>
+                                                <Label Text="{Binding ResultProfit}"/>
                                         </StackLayout>
                                     </StackLayout>
                                 </Frame>
@@ -47,14 +48,13 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-                <Label Text="" BackgroundColor="Black"></Label>
+                <Label Text="Lavatory" HorizontalTextAlignment="Center" FontAttributes="Bold" BackgroundColor="LightGray"></Label>
 
                 <ListView  
-                ItemsSource="{Binding LavDataCollection}"
-                IsPullToRefreshEnabled="False"  
-                Header="Lavatory"
-                HasUnevenRows="true" 
-                SeparatorVisibility="Default">
+                     ItemsSource="{Binding LavDataCollection}"
+                     IsPullToRefreshEnabled="False"  
+                     HasUnevenRows="true" 
+                     SeparatorVisibility="Default">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -66,8 +66,8 @@
                                             <Label Text="{Binding ResultItemName}"/>
                                         </StackLayout>
                                         <StackLayout Orientation="Horizontal">
-                                            <Label Text="Current Price"/>
-                                                <Label Text="{Binding ResultPrice}"/>
+                                                <Label Text="Current profit"/>
+                                                <Label Text="{Binding ResultProfit}"/>
                                         </StackLayout>
                                     </StackLayout>
                                 </Frame>
@@ -77,14 +77,13 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-                <Label Text="" BackgroundColor="Black"></Label>
+                <Label Text="Workbench" HorizontalTextAlignment="Center" FontAttributes="Bold" BackgroundColor="LightGray"></Label>
 
                 <ListView  
-                ItemsSource="{Binding WorkDataCollection}"
-                IsPullToRefreshEnabled="False"  
-                Header="Workbench"
-                HasUnevenRows="true" 
-                SeparatorVisibility="Default">
+                     ItemsSource="{Binding WorkDataCollection}"
+                     IsPullToRefreshEnabled="False"  
+                     HasUnevenRows="true" 
+                     SeparatorVisibility="Default">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -96,8 +95,8 @@
                                             <Label Text="{Binding ResultItemName}"/>
                                         </StackLayout>
                                         <StackLayout Orientation="Horizontal">
-                                            <Label Text="Current Price"/>
-                                                <Label Text="{Binding ResultPrice}"/>
+                                                <Label Text="Current profit"/>
+                                                <Label Text="{Binding ResultProfit}"/>
                                         </StackLayout>
                                     </StackLayout>
                                 </Frame>
@@ -106,8 +105,6 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-                <Label Text="" BackgroundColor="Black"></Label>
-
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

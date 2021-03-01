@@ -20,12 +20,12 @@ namespace Tarkov_price_check_app.ViewModels
                     ObsResults.Clear();
                     ObsResults1.Clear();
 
-                    foreach (var Variable in result.items)
+                    foreach (var variable in result.Items)
                     {
-                        ObsResults1.Add(Variable);
+                        ObsResults1.Add(variable);
                     }
                     ObsCollResults = ObsResults1;
-                    SearchResults = result.result;
+                    SearchResults = result.Result;
                 }));
             }
         }
@@ -33,36 +33,36 @@ namespace Tarkov_price_check_app.ViewModels
         public ObservableCollection<ApiResponseData> ObsResults = new ObservableCollection<ApiResponseData>();
         public ObservableCollection<ApiResponseData> ObsResults1 = new ObservableCollection<ApiResponseData>();
 
-        private string Searchresults = "";
+        private string _searchresults = "";
 
 
         public string SearchResults
         {
-            get { return Searchresults; }
+            get => _searchresults;
             set
             {
                 if (value == "ok")
                 {
                     if (ObsResults.Count == 1)
                     {
-                        Searchresults = "Found 1 item.";
+                        _searchresults = "Found 1 item.";
                         OnPropertyChanged();
                     }
 
                     else if (ObsResults.Count > 1)
                     {
-                        Searchresults = $"Found {ObsResults.Count.ToString()} items.";
+                        _searchresults = $"Found {ObsResults.Count} items.";
                         OnPropertyChanged();
                     }
                     else
                     {
-                        Searchresults = "Item not found";
+                        _searchresults = "Item not found";
                         OnPropertyChanged();
                     }
                 }
                 else
                 {
-                    Searchresults = "Search failed to connect";
+                    _searchresults = "Search failed to connect";
                     OnPropertyChanged();
                 }
                 
@@ -70,7 +70,7 @@ namespace Tarkov_price_check_app.ViewModels
         }
         public ObservableCollection<ApiResponseData> ObsCollResults
              {
-            get { return ObsResults; }
+            get => ObsResults;
 
             set {
              ObsResults = value;

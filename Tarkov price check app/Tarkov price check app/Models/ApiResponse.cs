@@ -8,24 +8,24 @@ namespace Tarkov_price_check_app.Models
     public class ApiResponseData
     {
 
-            public string enImg { get; set; }
+            public string EnImg { get; set; }
            
-            public string enName { get; set; }
+            public string EnName { get; set; }
 
-            public int price { get; set; }
+            public int Price { get; set; }
 
-            public string updated { get; set; }
+            public string Updated { get; set; }
 
-            public int avgDayPrice { get; set; }
+            public int AvgDayPrice { get; set; }
 
-            public string traderName { get; set; }
+            public string TraderName { get; set; }
 
-            public int traderPrice { get; set; }
+            public int TraderPrice { get; set; }
     }
 
     public class ApiResponse
     {
-        public string result { get; set; }
-        public List<ApiResponseData> items { get; set; }
+        public string Result { get; set; }
+        public List<ApiResponseData> Items { get; set; }
     }
 }

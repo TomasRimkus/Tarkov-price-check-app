@@ -4,7 +4,7 @@
       "ResultItem": [
         {
           "ResultItemName": "Secure Flash drive",
-          "ResultPrice": 0,
+          "ResultProfit": 0,
           "ResultCount": 3,
           "Ingredients": {
             "Ingredient": [
@@ -26,7 +26,7 @@
         },
         {
           "ResultItemName": "Virtex programmable processor",
-          "ResultPrice": 0,
+          "ResultProfit": 0,
           "ResultCount": 1,
           "Ingredients": {
             "Ingredient": [
@@ -46,31 +46,9 @@
             ]
           }
         },
-        {
-          "ResultItemName": "Military COFDM wireless Signal Transmitter",
-          "ResultPrice": 0,
-          "ResultCount": 1,
-          "Ingredients": {
-            "Ingredient": [
-              "Broken GPhone X",
-              "Powerbank",
-              "Military circuit board"
-            ],
-            "IngredientAmmount": [
-              1,
-              1,
-              1
-            ],
-            "IngredientPrice": [
-              0,
-              0,
-              0
-            ]
-          }
-        },
-        {
+	      {
           "ResultItemName": "VPX Flash Storage Module",
-          "ResultPrice": 0,
+          "ResultProfit": 0,
           "ResultCount": 2,
           "Ingredients": {
             "Ingredient": [
@@ -92,7 +70,7 @@
         },
         {
           "ResultItemName": "UHF RFID Reader",
-          "ResultPrice": 0,
+          "ResultProfit": 0,
           "ResultCount": 1,
           "Ingredients": {
             "Ingredient": [
@@ -111,7 +89,7 @@
         },
         {
           "ResultItemName": "Object 11SR keycard",
-          "ResultPrice": 0,
+          "ResultProfit": 0,
           "ResultCount": 1,
           "Ingredients": {
             "Ingredient": [
@@ -136,7 +114,7 @@
         },
         {
           "ResultItemName": "Graphics card",
-          "ResultPrice": 0,
+          "ResultProfit": 0,
           "ResultCount": 1,
           "Ingredients": {
             "Ingredient": [
@@ -161,7 +139,7 @@
         },
         {
           "ResultItemName": "Folder with intelligence",
-          "ResultPrice": 0,
+          "ResultProfit": 0,
           "ResultCount": 1,
           "Ingredients": {
             "Ingredient": [
@@ -177,34 +155,6 @@
               0
             ]
           }
-        },
-        {
-          "ResultItemName": "Lab. Violet keycard",
-          "ResultPrice": 0,
-          "ResultCount": 1,
-          "Ingredients": {
-            "Ingredient": [
-              "UHF RFID Reader",
-              "TerraGroup Labs access keycard",
-              "Lab. Yellow keycard",
-              "Folder with intelligence",
-              "Magnet"
-            ],
-            "IngredientAmmount": [
-              1,
-              12,
-              3,
-              7,
-              3
-            ],
-            "IngredientPrice": [
-              0,
-              0,
-              0,
-              0,
-              0
-            ]
-          }
         }
       ]
     },
@@ -212,7 +162,7 @@
       "ResultItem": [
         {
           "ResultItemName": "Expeditionary fuel tank",
-          "ResultPrice": 0,
+          "ResultProfit": 0,
           "IngredientPrice": 0,
           "ResultCount": 1,
           "Ingredients": {
@@ -228,7 +178,7 @@
         },
         {
           "ResultItemName": "Magazine case",
-          "ResultPrice": 0,
+          "ResultProfit": 0,
           "IngredientPrice": 0,
           "ResultCount": 1,
           "Ingredients": {
@@ -248,7 +198,7 @@
         },
         {
           "ResultItemName": "Lucky Scav Junkbox",
-          "ResultPrice": 0,
+          "ResultProfit": 0,
           "IngredientPrice": 0,
           "ResultCount": 1,
           "Ingredients": {
@@ -268,7 +218,7 @@
         },
         {
           "ResultItemName": "Grenade case",
-          "ResultPrice": 0,
+          "ResultProfit": 0,
           "IngredientPrice": 0,
           "ResultCount": 1,
           "Ingredients": {
@@ -290,7 +240,7 @@
         },
         {
           "ResultItemName": "6SH118 raid backpack",
-          "ResultPrice": 0,
+          "ResultProfit": 0,
           "IngredientPrice": 0,
           "ResultCount": 1,
           "Ingredients": {
@@ -310,7 +260,7 @@
         },
         {
           "ResultItemName": "FP-100 filter absorber",
-          "ResultPrice": 0,
+          "ResultProfit": 0,
           "IngredientPrice": 0,
           "ResultCount": 1,
           "Ingredients": {
@@ -332,7 +282,7 @@
       "ResultItem": [
         {
           "ResultItemName": "9x19 mm AP 6.3",
-          "ResultPrice": 0,
+          "ResultProfit": 0,
           "IngredientPrice": 0,
           "ResultCount": 200,
           "Ingredients": {
@@ -348,7 +298,7 @@
         },
         {
           "ResultItemName": "9x39 mm SP-6",
-          "ResultPrice": 0,
+          "ResultProfit": 0,
           "IngredientPrice": 0,
           "ResultCount": 400,
           "Ingredients": {
@@ -366,7 +316,7 @@
         },
         {
           "ResultItemName": "9x39 mm 7N9 SPP",
-          "ResultPrice": 0,
+          "ResultProfit": 0,
           "IngredientPrice": 0,
           "ResultCount": 200,
           "Ingredients": {
@@ -384,7 +334,7 @@
         },
         {
           "ResultItemName": "7.62x39 mm BP",
-          "ResultPrice": 0,
+          "ResultProfit": 0,
           "IngredientPrice": 0,
           "ResultCount": 260,
           "Ingredients": {
@@ -400,7 +350,7 @@
         },
         {
           "ResultItemName": "7.62x51 mm M61",
-          "ResultPrice": 0,
+          "ResultProfit": 0,
           "IngredientPrice": 0,
           "ResultCount": 300,
           "Ingredients": {
@@ -416,7 +366,7 @@
         },
         {
           "ResultItemName": "5.56x45 mm M995",
-          "ResultPrice": 0,
+          "ResultProfit": 0,
           "IngredientPrice": 0,
           "ResultCount": 300,
           "Ingredients": {
@@ -432,7 +382,7 @@
         },
         {
           "ResultItemName": "5.45x39 mm 7N39 \"Igolnik\"",
-          "ResultPrice": 0,
+          "ResultProfit": 0,
           "IngredientPrice": 0,
           "ResultCount": 260,
           "Ingredients": {
@@ -450,7 +400,7 @@
         },
         {
           "ResultItemName": "9x19 mm 7N31",
-          "ResultPrice": 0,
+          "ResultProfit": 0,
           "IngredientPrice": 0,
           "ResultCount": 300,
           "Ingredients": {

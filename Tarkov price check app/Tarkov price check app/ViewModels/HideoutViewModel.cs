@@ -29,7 +29,6 @@ namespace Tarkov_price_check_app.ViewModels
         public HideoutViewModel()
         {
             RefreshCommand = new AsyncCommand(Refresh);
-
         }
 
         async Task Refresh()
@@ -56,11 +55,13 @@ namespace Tarkov_price_check_app.ViewModels
             }
         }
 
-        public async System.Threading.Tasks.Task<int> CalcIntelAsync()
+        // Todo: Gotta figure out how to fit all 3 functions into one that takes the main object.
+
+        public async System.Threading.Tasks.Task CalcIntelAsync()
         {
             foreach (var item in Results.FullItems.IntelCenter.ResultItem)
             {
-                foreach (var item1 in item.Ingredients.Ingredient)
+                foreach (var item_ in item.Ingredients.Ingredient)
                 {
                     var name = item.Ingredients.Ingredient;
                     var count = item.Ingredients.IngredientAmmount;
@@ -71,26 +72,24 @@ namespace Tarkov_price_check_app.ViewModels
                     for (int i = 0; i < ingredientCount; i++)
                     {
                         var priceList = await ApiService.ApiServiceInstance.FindItemAsync(name[i]);
-                        totalIngredientPrice = totalIngredientPrice + count[i] * priceList.items.First().price;
+                        totalIngredientPrice += count[i] * priceList.Items.First().Price;
                     }
 
                     item.IngredientPrice = totalIngredientPrice;
                 }
 
                 var priceList1 = await ApiService.ApiServiceInstance.FindItemAsync(item.ResultItemName);
-                int resultPrice = 0;
-                resultPrice = item.ResultCount * priceList1.items.First().price;
-                item.ResultPrice = 0;
-                item.ResultPrice = resultPrice - item.IngredientPrice;
+                var resultProfit = item.ResultCount * priceList1.Items.First().Price;
+                item.ResultProfit = 0;
+                item.ResultProfit = resultProfit - item.IngredientPrice;
             }
-            return 0;
         }
 
-        public async System.Threading.Tasks.Task<int> CalcLavAsync()
+        public async System.Threading.Tasks.Task CalcLavAsync()
         {
             foreach (var item in Results.FullItems.Lavatory.ResultItem)
             {
-                foreach (var item1 in item.Ingredients.Ingredient)
+                foreach (var item_ in item.Ingredients.Ingredient)
                 {
                     var name = item.Ingredients.Ingredient;
                     var count = item.Ingredients.IngredientAmmount;
@@ -101,26 +100,24 @@ namespace Tarkov_price_check_app.ViewModels
                     for (int i = 0; i < ingredientCount; i++)
                     {
                         var priceList = await ApiService.ApiServiceInstance.FindItemAsync(name[i]);
-                        totalIngredientPrice = totalIngredientPrice + count[i] * priceList.items.First().price;
+                        totalIngredientPrice += count[i] * priceList.Items.First().Price;
                     }
 
                     item.IngredientPrice = totalIngredientPrice;
                 }
 
                 var priceList1 = await ApiService.ApiServiceInstance.FindItemAsync(item.ResultItemName);
-                int resultPrice = 0;
-                resultPrice = item.ResultCount * priceList1.items.First().price;
-                item.ResultPrice = 0;
-                item.ResultPrice = resultPrice - item.IngredientPrice;
+                var resultProfit = item.ResultCount * priceList1.Items.First().Price;
+                item.ResultProfit = 0;
+                item.ResultProfit = resultProfit - item.IngredientPrice;
             }
-            return 0;
         }
 
-        public async System.Threading.Tasks.Task<int> CalcWorkAsync()
+        public async System.Threading.Tasks.Task CalcWorkAsync()
         {
             foreach (var item in Results.FullItems.Workbench.ResultItem)
             {
-                foreach (var item1 in item.Ingredients.Ingredient)
+                foreach (var item_ in item.Ingredients.Ingredient)
                 {
                     var name = item.Ingredients.Ingredient;
                     var count = item.Ingredients.IngredientAmmount;
@@ -131,19 +128,17 @@ namespace Tarkov_price_check_app.ViewModels
                     for (int i = 0; i < ingredientCount; i++)
                     {
                         var priceList = await ApiService.ApiServiceInstance.FindItemAsync(name[i]);
-                        totalIngredientPrice = totalIngredientPrice + count[i] * priceList.items.First().price;
+                        totalIngredientPrice += count[i] * priceList.Items.First().Price;
                     }
 
                     item.IngredientPrice = totalIngredientPrice;
                 }
 
                 var priceList1 = await ApiService.ApiServiceInstance.FindItemAsync(item.ResultItemName);
-                int resultPrice = 0;
-                resultPrice = item.ResultCount * priceList1.items.First().price;
-                item.ResultPrice = 0;
-                item.ResultPrice = resultPrice - item.IngredientPrice;
+                var resultProfit = item.ResultCount * priceList1.Items.First().Price;
+                item.ResultProfit = 0;
+                item.ResultProfit = resultProfit - item.IngredientPrice;
             }
-            return 0;
         }
 
         public async void CalcPrices()
@@ -156,6 +151,9 @@ namespace Tarkov_price_check_app.ViewModels
             WorkData.Clear();
 
             SetStatus = "Updating prices...";
+            SetButtonStatus = false;
+
+
             LoadJson();
             await CalcIntelAsync();
             await CalcLavAsync();
@@ -174,20 +172,15 @@ namespace Tarkov_price_check_app.ViewModels
                 WorkDataTemp.Add(data);
             }
             SetStatus = "Done";
+            SetButtonStatus = true;
             IntelDataCollection = IntelDataTemp;
             LavDataCollection = LavaDataTemp;
             WorkDataCollection = WorkDataTemp;
         }
 
-
-        public ICommand UpdateHideout
-        {
-            get;
-        }
-
         public ObservableCollection<HideoutItems.ResultItem> IntelDataCollection
         {
-            get { return IntelData; }
+            get => IntelData;
 
             set
             {
@@ -198,7 +191,7 @@ namespace Tarkov_price_check_app.ViewModels
 
         public ObservableCollection<HideoutItems.ResultItem> LavDataCollection
         {
-            get { return LavaData; }
+            get => LavaData;
 
             set
             {
@@ -209,7 +202,7 @@ namespace Tarkov_price_check_app.ViewModels
 
         public ObservableCollection<HideoutItems.ResultItem> WorkDataCollection
         {
-            get { return WorkData; }
+            get => WorkData;
 
             set
             {
@@ -219,10 +212,11 @@ namespace Tarkov_price_check_app.ViewModels
         }
 
         public string Status = "Ready";
+        public bool ButtonStatus = true;
 
         public string SetStatus
         {
-            get { return Status; }
+            get => Status;
             set
             {
                 Status = value;
@@ -230,12 +224,14 @@ namespace Tarkov_price_check_app.ViewModels
             }
         }
 
-
-
-
-
-
+        public bool SetButtonStatus
+        {
+            get => ButtonStatus;
+            set
+            {
+                ButtonStatus = value;
+                OnPropertyChanged();
+            }
+        }
     }
-
-
 }

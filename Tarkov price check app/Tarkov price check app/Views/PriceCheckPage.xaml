@@ -37,27 +37,27 @@
                                 <Frame>
                                     <StackLayout>
                                         <StackLayout Orientation="Horizontal">
-                                            <Image Source="{Binding enImg}"/>
+                                            <Image Source="{Binding EnImg}"/>
                                             <Label Text="Item name"/>
-                                            <Label Text="{Binding enName}"/>
+                                            <Label Text="{Binding EnName}"/>
                                         </StackLayout>
                                         <StackLayout Orientation="Horizontal">
                                             <Label Text="Current Price"/>
-                                            <Label Text="{Binding price}"/>
+                                            <Label Text="{Binding Price}"/>
                                         </StackLayout>
                                         <StackLayout Orientation="Horizontal">
                                             <Label Text="Average day price"/>
-                                            <Label Text="{Binding avgDayPrice}"/>
+                                            <Label Text="{Binding AvgDayPrice}"/>
                                         </StackLayout>
                                         <StackLayout Orientation="Horizontal">
                                             <Label Text="Best trader to vendor"/>
-                                            <Label Text="{Binding traderName}"/>
+                                            <Label Text="{Binding TraderName}"/>
                                             <Label Text=" price: "/>
-                                            <Label Text="{Binding traderPrice}"/>
+                                            <Label Text="{Binding TraderPrice}"/>
                                         </StackLayout>
                                         <StackLayout Orientation="Horizontal">
                                             <Label Text="Last updated"/>
-                                            <Label Text="{Binding updated}"/>
+                                            <Label Text="{Binding Updated}"/>
                                         </StackLayout>
                                         </StackLayout>
                                 </Frame>

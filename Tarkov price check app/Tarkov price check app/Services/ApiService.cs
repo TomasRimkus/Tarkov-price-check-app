@@ -12,37 +12,37 @@ namespace Tarkov_price_check_app.Services
 {
     public class ApiService
     {
-        private static ApiService _ApiServiceInstance;
+        private static ApiService _apiServiceInstance;
 
         public static ApiService ApiServiceInstance
         {
             get
             {
-                if (_ApiServiceInstance == null)
-                    _ApiServiceInstance = new ApiService();
-                return _ApiServiceInstance;
+                if (_apiServiceInstance == null)
+                    _apiServiceInstance = new ApiService();
+                return _apiServiceInstance;
             }
         }
 
-        private HttpClient client;
+        private HttpClient _client;
 
 
         public ApiService()
         {
-            client = new HttpClient();
+            _client = new HttpClient();
         }
         public async Task<ApiResponse> FindItemAsync(string query)
         {
 
             string encodedQuery = HttpUtility.UrlEncode(query);
-                var result = await client.GetStringAsync($"https://tarkov-market.com/api/items?lang=en&search={encodedQuery}&limit=20");
+                var result = await _client.GetStringAsync($"https://tarkov-market.com/api/items?lang=en&search={encodedQuery}&limit=20");
 
         ApiResponse objresult = JsonConvert.DeserializeObject<ApiResponse>(result);
 
 
-        if (!string.IsNullOrEmpty(objresult.result))
+        if (!string.IsNullOrEmpty(objresult.Result))
         {
-            objresult.items.RemoveAll(x => !x.enName.ToUpper().Contains(query.ToUpper()));
+            objresult.Items.RemoveAll(x => !x.EnName.ToUpper().Contains(query.ToUpper()));
         }
 
         return objresult;

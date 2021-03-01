@@ -13,7 +13,7 @@ namespace Tarkov_price_check_app.Models
         public class ResultItem
         {
             public string ResultItemName { get; set; }
-            public int ResultPrice { get; set; }
+            public int ResultProfit { get; set; }
             public int IngredientPrice { get; set; }
             public int ResultCount { get; set; }
             public Ingredients Ingredients { get; set; }
