@@ -15,15 +15,12 @@ namespace Tarkov_price_check_app.ViewModels
 {
     public class HideoutViewModel : BindableObject
     {
-        public HideoutItems.Root Results = new HideoutItems.Root();
+        public HideoutItems.FullItems Results = new HideoutItems.FullItems();
 
-        public ObservableCollection<HideoutItems.ResultItem> IntelData = new ObservableCollection<HideoutItems.ResultItem>();
-        public ObservableCollection<HideoutItems.ResultItem> LavaData = new ObservableCollection<HideoutItems.ResultItem>();
-        public ObservableCollection<HideoutItems.ResultItem> WorkData = new ObservableCollection<HideoutItems.ResultItem>();
+        public ObservableCollection<HideoutItems.Item> IntelData = new ObservableCollection<HideoutItems.Item>();
+        public ObservableCollection<HideoutItems.Item> LavaData = new ObservableCollection<HideoutItems.Item>();
+        public ObservableCollection<HideoutItems.Item> WorkData = new ObservableCollection<HideoutItems.Item>();
 
-        public ObservableCollection<HideoutItems.ResultItem> IntelDataTemp = new ObservableCollection<HideoutItems.ResultItem>();
-        public ObservableCollection<HideoutItems.ResultItem> LavaDataTemp = new ObservableCollection<HideoutItems.ResultItem>();
-        public ObservableCollection<HideoutItems.ResultItem> WorkDataTemp = new ObservableCollection<HideoutItems.ResultItem>();
         public AsyncCommand RefreshCommand { get; }
 
         public HideoutViewModel()
@@ -49,167 +46,101 @@ namespace Tarkov_price_check_app.ViewModels
                     using (StreamReader r = new StreamReader(stream))
                     {
                         string json = r.ReadToEnd();
-                        Results = JsonConvert.DeserializeObject<HideoutItems.Root>(json);
+                        Results = JsonConvert.DeserializeObject<HideoutItems.FullItems>(json);
                     }
                 }
             }
         }
 
-        // Todo: Gotta figure out how to fit all 3 functions into one that takes the main object.
-
-        public async System.Threading.Tasks.Task CalcIntelAsync()
+        public async System.Threading.Tasks.Task CalcPricesAsync()
         {
-            foreach (var item in Results.FullItems.IntelCenter.ResultItem)
+            foreach (var item in Results.Items)
             {
-                foreach (var item_ in item.Ingredients.Ingredient)
+                item.ResultProfit = 0;
+                int ingredientTotalPrice = 0;
+
+                for (int i = 0; i < item.Ingredients.Ingredient.Count; i++)
                 {
-                    var name = item.Ingredients.Ingredient;
-                    var count = item.Ingredients.IngredientAmmount;
-                    var ingredientCount = name.Count;
-                    item.IngredientPrice = 0;
-                    var totalIngredientPrice = 0;
-
-                    for (int i = 0; i < ingredientCount; i++)
-                    {
-                        var priceList = await ApiService.ApiServiceInstance.FindItemAsync(name[i]);
-                        totalIngredientPrice += count[i] * priceList.Items.First().Price;
-                    }
-
-                    item.IngredientPrice = totalIngredientPrice;
+                    var priceList = await ApiService.ApiServiceInstance.FindItemAsync(item.Ingredients.Ingredient[i]);
+                    ingredientTotalPrice += item.Ingredients.IngredientAmmount[i] * priceList.Items.First().AvgDayPrice;
                 }
 
-                var priceList1 = await ApiService.ApiServiceInstance.FindItemAsync(item.ResultItemName);
-                var resultProfit = item.ResultCount * priceList1.Items.First().Price;
-                item.ResultProfit = 0;
-                item.ResultProfit = resultProfit - item.IngredientPrice;
+                var resultPriceList = await ApiService.ApiServiceInstance.FindItemAsync(item.ResultItemName);
+                int resultProfit = item.ResultCount * resultPriceList.Items.First().AvgDayPrice;
+                item.ResultProfit = resultProfit - ingredientTotalPrice;
             }
         }
 
-        public async System.Threading.Tasks.Task CalcLavAsync()
+        public void MoveItemsToStations()
         {
-            foreach (var item in Results.FullItems.Lavatory.ResultItem)
+            foreach (var item in Results.Items)
             {
-                foreach (var item_ in item.Ingredients.Ingredient)
+                switch (item.Station)
                 {
-                    var name = item.Ingredients.Ingredient;
-                    var count = item.Ingredients.IngredientAmmount;
-                    var ingredientCount = name.Count;
-                    item.IngredientPrice = 0;
-                    var totalIngredientPrice = 0;
-
-                    for (int i = 0; i < ingredientCount; i++)
-                    {
-                        var priceList = await ApiService.ApiServiceInstance.FindItemAsync(name[i]);
-                        totalIngredientPrice += count[i] * priceList.Items.First().Price;
-                    }
-
-                    item.IngredientPrice = totalIngredientPrice;
+                    case "Intel":
+                        IntelData.Add(item);
+                        break;
+                    case "Lav":
+                        LavaData.Add(item);
+                        break;
+                    case "Work":
+                        WorkData.Add(item);
+                        break;
                 }
-
-                var priceList1 = await ApiService.ApiServiceInstance.FindItemAsync(item.ResultItemName);
-                var resultProfit = item.ResultCount * priceList1.Items.First().Price;
-                item.ResultProfit = 0;
-                item.ResultProfit = resultProfit - item.IngredientPrice;
             }
+
         }
 
-        public async System.Threading.Tasks.Task CalcWorkAsync()
-        {
-            foreach (var item in Results.FullItems.Workbench.ResultItem)
-            {
-                foreach (var item_ in item.Ingredients.Ingredient)
-                {
-                    var name = item.Ingredients.Ingredient;
-                    var count = item.Ingredients.IngredientAmmount;
-                    var ingredientCount = name.Count;
-                    item.IngredientPrice = 0;
-                    var totalIngredientPrice = 0;
-
-                    for (int i = 0; i < ingredientCount; i++)
-                    {
-                        var priceList = await ApiService.ApiServiceInstance.FindItemAsync(name[i]);
-                        totalIngredientPrice += count[i] * priceList.Items.First().Price;
-                    }
-
-                    item.IngredientPrice = totalIngredientPrice;
-                }
-
-                var priceList1 = await ApiService.ApiServiceInstance.FindItemAsync(item.ResultItemName);
-                var resultProfit = item.ResultCount * priceList1.Items.First().Price;
-                item.ResultProfit = 0;
-                item.ResultProfit = resultProfit - item.IngredientPrice;
-            }
-        }
 
         public async void CalcPrices()
         {
-            IntelDataTemp.Clear();
+
             IntelData.Clear();
-            LavaDataTemp.Clear();
             LavaData.Clear();
-            WorkDataTemp.Clear();
             WorkData.Clear();
 
             SetStatus = "Updating prices...";
             SetButtonStatus = false;
-
-
             LoadJson();
-            await CalcIntelAsync();
-            await CalcLavAsync();
-            await CalcWorkAsync();
-
-            foreach (var data in Results.FullItems.IntelCenter.ResultItem)
-            {
-                IntelDataTemp.Add(data);
-            }
-            foreach (var data in Results.FullItems.Lavatory.ResultItem)
-            {
-                LavaDataTemp.Add(data);
-            }
-            foreach (var data in Results.FullItems.Workbench.ResultItem)
-            {
-                WorkDataTemp.Add(data);
-            }
+            await CalcPricesAsync();
+            MoveItemsToStations();
             SetStatus = "Done";
             SetButtonStatus = true;
-            IntelDataCollection = IntelDataTemp;
-            LavDataCollection = LavaDataTemp;
-            WorkDataCollection = WorkDataTemp;
         }
 
-        public ObservableCollection<HideoutItems.ResultItem> IntelDataCollection
-        {
-            get => IntelData;
+        public ObservableCollection<HideoutItems.Item> IntelDataCollection
+                   {
+                       get => IntelData;
 
-            set
-            {
-                IntelData = value;
-                OnPropertyChanged();
-            }
-        }
+                       set
+                       {
+                           IntelData = value;
+                           OnPropertyChanged();
+                       }
+                   }
 
-        public ObservableCollection<HideoutItems.ResultItem> LavDataCollection
-        {
-            get => LavaData;
+                   public ObservableCollection<HideoutItems.Item> LavDataCollection
+                   {
+                       get => LavaData;
 
-            set
-            {
-                LavaData = value;
-                OnPropertyChanged();
-            }
-        }
+                       set
+                       {
+                           LavaData = value;
+                           OnPropertyChanged();
+                       }
+                   }
 
-        public ObservableCollection<HideoutItems.ResultItem> WorkDataCollection
-        {
-            get => WorkData;
+                   public ObservableCollection<HideoutItems.Item> WorkDataCollection
+                   {
+                       get => WorkData;
 
-            set
-            {
-                WorkData = value;
-                OnPropertyChanged();
-            }
-        }
+                       set
+                       {
+                           WorkData = value;
+                           OnPropertyChanged();
+                       }
+                   }
+
 
         public string Status = "Ready";
         public bool ButtonStatus = true;

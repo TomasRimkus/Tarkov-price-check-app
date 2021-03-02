@@ -1,424 +1,384 @@
 {
-  "FullItems": {
-	  "IntelCenter": {
-      "ResultItem": [
-        {
-          "ResultItemName": "Secure Flash drive",
-          "ResultProfit": 0,
-          "ResultCount": 3,
-          "Ingredients": {
-            "Ingredient": [
-              "Broken GPhone",
-              "Broken GPhone X",
-              "SSD drive"
-            ],
-            "IngredientAmmount": [
-              1,
-              1,
-              1
-            ],
-            "IngredientPrice": [
-              0,
-              0,
-              0
-            ]
-          }
-        },
-        {
-          "ResultItemName": "Virtex programmable processor",
-          "ResultProfit": 0,
-          "ResultCount": 1,
-          "Ingredients": {
-            "Ingredient": [
-              "Military circuit board",
-              "PC CPU",
-              "Capacitors"
-            ],
-            "IngredientAmmount": [
-              2,
-              2,
-              5
-            ],
-            "IngredientPrice": [
-              0,
-              0,
-              0
-            ]
-          }
-        },
-	      {
-          "ResultItemName": "VPX Flash Storage Module",
-          "ResultProfit": 0,
-          "ResultCount": 2,
-          "Ingredients": {
-            "Ingredient": [
-              "RAM",
-              "SSD drive",
-              "Broken GPhone"
-            ],
-            "IngredientAmmount": [
-              3,
-              1,
-              1
-            ],
-            "IngredientPrice": [
-              0,
-              0,
-              0
-            ]
-          }
-        },
-        {
-          "ResultItemName": "UHF RFID Reader",
-          "ResultProfit": 0,
-          "ResultCount": 1,
-          "Ingredients": {
-            "Ingredient": [
-              "TerraGroup Labs access keycard",
-              "Signal Jammer"
-            ],
-            "IngredientAmmount": [
-              1,
-              2
-            ],
-            "IngredientPrice": [
-              0,
-              0
-            ]
-          }
-        },
-        {
-          "ResultItemName": "Object 11SR keycard",
-          "ResultProfit": 0,
-          "ResultCount": 1,
-          "Ingredients": {
-            "Ingredient": [
-              "UHF RFID Reader",
-              "Secure Flash drive",
-              "VPX Flash Storage Module",
-              "Object 21WS keycard"
-            ],
-            "IngredientAmmount": [
-              1,
-              3,
-              1,
-              1
-            ],
-            "IngredientPrice": [
-              0,
-              0,
-              0,
-              0
-            ]
-          }
-        },
-        {
-          "ResultItemName": "Graphics card",
-          "ResultProfit": 0,
-          "ResultCount": 1,
-          "Ingredients": {
-            "Ingredient": [
-              "Printed circuit board",
-              "PC CPU",
-              "CPU Fan",
-              "VPX Flash Storage Module"
-            ],
-            "IngredientAmmount": [
-              8,
-              4,
-              2,
-              1
-            ],
-            "IngredientPrice": [
-              0,
-              0,
-              0,
-              0
-            ]
-          }
-        },
-        {
-          "ResultItemName": "Folder with intelligence",
-          "ResultProfit": 0,
-          "ResultCount": 1,
-          "Ingredients": {
-            "Ingredient": [
-              "Secure Flash drive",
-              "Printer paper"
-            ],
-            "IngredientAmmount": [
-              3,
-              1
-            ],
-            "IngredientPrice": [
-              0,
-              0
-            ]
-          }
+	"items": [
+		{
+			"Station": "Intel",
+			"ResultItemName": "Secure Flash drive",
+			"ResultProfit": 0,
+			"ResultCount": 3,
+			"Ingredients": {
+				"Ingredient": [
+					"Broken GPhone",
+					"Broken GPhone X",
+					"SSD drive"
+				],
+				"IngredientAmmount": [
+					1,
+					1,
+					1
+				]
+			}
+		},
+		{
+			"Station": "Intel",
+			"ResultItemName": "Virtex programmable processor",
+			"ResultProfit": 0,
+			"ResultCount": 1,
+			"Ingredients": {
+				"Ingredient": [
+					"Military circuit board",
+					"PC CPU",
+					"Capacitors"
+				],
+				"IngredientAmmount": [
+					2,
+					2,
+					5
+				]
+			}
+		},
+		{
+			"Station": "Intel",
+			"ResultItemName": "VPX Flash Storage Module",
+			"ResultProfit": 0,
+			"ResultCount": 2,
+			"Ingredients": {
+				"Ingredient": [
+					"RAM",
+					"SSD drive",
+					"Broken GPhone"
+				],
+				"IngredientAmmount": [
+					3,
+					1,
+					1
+				]
+			}
+		},
+		{
+			"Station": "Intel",
+			"ResultItemName": "UHF RFID Reader",
+			"ResultProfit": 0,
+			"ResultCount": 1,
+			"Ingredients": {
+				"Ingredient": [
+					"TerraGroup Labs access keycard",
+					"Signal Jammer"
+				],
+				"IngredientAmmount": [
+					1,
+					2
+				]
+			}
+		},
+		{
+			"Station": "Intel",
+			"ResultItemName": "Object 11SR keycard",
+			"ResultProfit": 0,
+			"ResultCount": 1,
+			"Ingredients": {
+				"Ingredient": [
+					"UHF RFID Reader",
+					"Secure Flash drive",
+					"VPX Flash Storage Module",
+					"Object 21WS keycard"
+				],
+				"IngredientAmmount": [
+					1,
+					3,
+					1,
+					1
+				]
+			}
+		},
+		{
+			"Station": "Intel",
+			"ResultItemName": "Graphics card",
+			"ResultProfit": 0,
+			"ResultCount": 1,
+			"Ingredients": {
+				"Ingredient": [
+					"Printed circuit board",
+					"PC CPU",
+					"CPU Fan",
+					"VPX Flash Storage Module"
+				],
+				"IngredientAmmount": [
+					8,
+					4,
+					2,
+					1
+				]
+			}
+		},
+		{
+			"Station": "Intel",
+			"ResultItemName": "Folder with intelligence",
+			"ResultProfit": 0,
+			"ResultCount": 1,
+			"Ingredients": {
+				"Ingredient": [
+					"Secure Flash drive",
+					"Printer paper"
+				],
+				"IngredientAmmount": [
+					3,
+					1
+				]
+			}
+		},
+		{
+			"Station": "Lav",
+			"ResultItemName": "Expeditionary fuel tank",
+			"ResultProfit": 0,
+			"ResultCount": 1,
+			"Ingredients": {
+				"Ingredient": [
+					"Zibbo lighter",
+					"Crickent lighter"
+				],
+				"IngredientAmmount": [
+					10,
+					10
+				]
+			}
+		},
+		{
+			"Station": "Lav",
+			"ResultItemName": "Magazine case",
+			"ResultProfit": 0,
+			"ResultCount": 1,
+			"Ingredients": {
+				"Ingredient": [
+					"Expeditionary fuel tank",
+					"Metal cutting scissors",
+					"Bolts",
+					"Screw nut"
+				],
+				"IngredientAmmount": [
+					2,
+					1,
+					3,
+					3
+				]
+			}
+		},
+		{
+			"Station": "Lav",
+			"ResultItemName": "Lucky Scav Junkbox",
+			"ResultProfit": 0,
+			"ResultCount": 1,
+			"Ingredients": {
+				"Ingredient": [
+					"Magazine case",
+					"Metal cutting scissors",
+					"Bolts",
+					"KEKTAPE duct tape"
+				],
+				"IngredientAmmount": [
+					3,
+					1,
+					6,
+					3
+				]
+			}
+		},
+		{
+			"Station": "Lav",
+			"ResultItemName": "Grenade case",
+			"ResultProfit": 0,
+			"ResultCount": 1,
+			"Ingredients": {
+				"Ingredient": [
+					"Metal fuel tank",
+					"Metal cutting scissors",
+					"Bolts",
+					"Screw nut",
+					"Wrench"
+				],
+				"IngredientAmmount": [
+					2,
+					1,
+					5,
+					5,
+					1
+				]
+			}
+		},
+		{
+			"Station": "Lav",
+			"ResultItemName": "6SH118 raid backpack",
+			"ResultProfit": 0,
+			"ResultCount": 1,
+			"Ingredients": {
+				"Ingredient": [
+					"VKBO army bag",
+					"Paracord",
+					"Ripstop cloth",
+					"Leatherman Multitool"
+				],
+				"IngredientAmmount": [
+					4,
+					1,
+					2,
+					1
+				]
+			}
+		},
+		{
+			"Station": "Lav",
+			"ResultItemName": "FP-100 filter absorber",
+			"ResultProfit": 0,
+			"ResultCount": 1,
+			"Ingredients": {
+				"Ingredient": [
+					"Air filter for gas mask",
+					"Water filter",
+					"A set of tools"
+				],
+				"IngredientAmmount": [
+					2,
+					2,
+					1
+				]
+			}
+		},
+		{
+			"Station": "Work",
+			"ResultItemName": "9x19 mm AP 6.3",
+			"ResultProfit": 0,
+			"ResultCount": 200,
+			"Ingredients": {
+				"Ingredient": [
+					"9x19 mm Pst gzh",
+					"Gunpowder \"Hawk\""
+				],
+				"IngredientAmmount": [
+					200,
+					2
+				]
+			}
+		},
+		{
+			"Station": "Work",
+			"ResultItemName": "9x39 mm SP-6",
+			"ResultProfit": 0,
+			"ResultCount": 400,
+			"Ingredients": {
+				"Ingredient": [
+					"7.62x39 mm HP",
+					"Gunpowder \"Eagle\"",
+					"Xenomorph sealing foam"
+				],
+				"IngredientAmmount": [
+					120,
+					2,
+					2
+				]
+			}
+		},
+		{
+			"Station": "Work",
+			"ResultItemName": "9x39 mm 7N9 SPP",
+			"ResultProfit": 0,
+			"ResultCount": 200,
+			"Ingredients": {
+				"Ingredient": [
+					"9x21 mm SP13",
+					"Gunpowder \"Kite\"",
+					"Leatherman Multitool"
+				],
+				"IngredientAmmount": [
+					150,
+					1,
+					2
+				]
+			}
+		},
+		{
+			"Station": "Work",
+			"ResultItemName": "7.62x39 mm BP",
+			"ResultProfit": 0,
+			"ResultCount": 260,
+			"Ingredients": {
+				"Ingredient": [
+					"Gunpowder \"Eagle\"",
+					"Gunpowder \"Kite\""
+				],
+				"IngredientAmmount": [
+					2,
+					1
+				]
+			}
+		},
+		{
+			"Station": "Work",
+			"ResultItemName": "7.62x51 mm M61",
+			"ResultProfit": 0,
+			"ResultCount": 300,
+			"Ingredients": {
+				"Ingredient": [
+					"Gunpowder \"Hawk\"",
+					"Radiator helix"
+				],
+				"IngredientAmmount": [
+					6,
+					2
+				]
+			}
+		},
+		{
+			"Station": "Work",
+			"ResultItemName": "5.56x45 mm M995",
+			"ResultProfit": 0,
+			"ResultCount": 300,
+			"Ingredients": {
+				"Ingredient": [
+					"Gunpowder \"Eagle\"",
+					"OFZ 30x160mm shell"
+				],
+				"IngredientAmmount": [
+					2,
+					2
+				]
+			}
+		},
+		{
+			"Station": "Work",
+			"ResultItemName": "5.45x39 mm 7N39 \"Igolnik\"",
+			"ResultProfit": 0,
+			"ResultCount": 260,
+			"Ingredients": {
+				"Ingredient": [
+					"Gunpowder \"Eagle\"",
+					"Gunpowder \"Kite\"",
+					"Gunpowder \"Hawk\""
+				],
+				"IngredientAmmount": [
+					2,
+					2,
+					2
+				]
+			}
+		},
+		{
+			"Station": "Work",
+			"ResultItemName": "9x19 mm 7N31",
+			"ResultProfit": 0,
+			"ResultCount": 300,
+			"Ingredients": {
+				"Ingredient": [
+					"Gunpowder \"Eagle\"",
+					"Gunpowder \"Kite\"",
+					"9x19 mm Pst gzh",
+					"A pack of nails"
+				],
+				"IngredientAmmount": [
+					3,
+					4,
+					300,
+					4
+				]
+			}
+		}
+		]
         }
-      ]
-    },
-    "Lavatory": {
-      "ResultItem": [
-        {
-          "ResultItemName": "Expeditionary fuel tank",
-          "ResultProfit": 0,
-          "IngredientPrice": 0,
-          "ResultCount": 1,
-          "Ingredients": {
-            "Ingredient": [
-              "Zibbo lighter",
-              "Crickent lighter"
-            ],
-            "IngredientAmmount": [
-              10,
-              10
-            ]
-          }
-        },
-        {
-          "ResultItemName": "Magazine case",
-          "ResultProfit": 0,
-          "IngredientPrice": 0,
-          "ResultCount": 1,
-          "Ingredients": {
-            "Ingredient": [
-              "Expeditionary fuel tank",
-              "Metal cutting scissors",
-              "Bolts",
-              "Screw nut"
-            ],
-            "IngredientAmmount": [
-              2,
-              1,
-              3,
-              3
-            ]
-          }
-        },
-        {
-          "ResultItemName": "Lucky Scav Junkbox",
-          "ResultProfit": 0,
-          "IngredientPrice": 0,
-          "ResultCount": 1,
-          "Ingredients": {
-            "Ingredient": [
-              "Magazine case",
-              "Metal cutting scissors",
-              "Bolts",
-              "KEKTAPE duct tape"
-            ],
-            "IngredientAmmount": [
-              3,
-              1,
-              6,
-              3
-            ]
-          }
-        },
-        {
-          "ResultItemName": "Grenade case",
-          "ResultProfit": 0,
-          "IngredientPrice": 0,
-          "ResultCount": 1,
-          "Ingredients": {
-            "Ingredient": [
-              "Metal fuel tank",
-              "Metal cutting scissors",
-              "Bolts",
-              "Screw nut",
-              "Wrench"
-            ],
-            "IngredientAmmount": [
-              2,
-              1,
-              5,
-              5,
-              1
-            ]
-          }
-        },
-        {
-          "ResultItemName": "6SH118 raid backpack",
-          "ResultProfit": 0,
-          "IngredientPrice": 0,
-          "ResultCount": 1,
-          "Ingredients": {
-            "Ingredient": [
-              "VKBO army bag",
-              "Paracord",
-              "Ripstop cloth",
-              "Leatherman Multitool"
-            ],
-            "IngredientAmmount": [
-              4,
-              1,
-              2,
-              1
-            ]
-          }
-        },
-        {
-          "ResultItemName": "FP-100 filter absorber",
-          "ResultProfit": 0,
-          "IngredientPrice": 0,
-          "ResultCount": 1,
-          "Ingredients": {
-            "Ingredient": [
-              "Air filter for gas mask",
-              "Water filter",
-              "A set of tools"
-            ],
-            "IngredientAmmount": [
-              2,
-              2,
-              1
-            ]
-          }
-        }
-      ]
-    },
-    "Workbench": {
-      "ResultItem": [
-        {
-          "ResultItemName": "9x19 mm AP 6.3",
-          "ResultProfit": 0,
-          "IngredientPrice": 0,
-          "ResultCount": 200,
-          "Ingredients": {
-            "Ingredient": [
-              "9x19 mm Pst gzh",
-              "Gunpowder \"Hawk\""
-            ],
-            "IngredientAmmount": [
-              200,
-              2
-            ]
-          }
-        },
-        {
-          "ResultItemName": "9x39 mm SP-6",
-          "ResultProfit": 0,
-          "IngredientPrice": 0,
-          "ResultCount": 400,
-          "Ingredients": {
-            "Ingredient": [
-              "7.62x39 mm HP",
-              "Gunpowder \"Eagle\"",
-              "Xenomorph sealing foam"
-            ],
-            "IngredientAmmount": [
-              120,
-              2,
-              2
-            ]
-          }
-        },
-        {
-          "ResultItemName": "9x39 mm 7N9 SPP",
-          "ResultProfit": 0,
-          "IngredientPrice": 0,
-          "ResultCount": 200,
-          "Ingredients": {
-            "Ingredient": [
-              "9x21 mm SP13",
-              "Gunpowder \"Kite\"",
-              "Leatherman Multitool"
-            ],
-            "IngredientAmmount": [
-              150,
-              1,
-              2
-            ]
-          }
-        },
-        {
-          "ResultItemName": "7.62x39 mm BP",
-          "ResultProfit": 0,
-          "IngredientPrice": 0,
-          "ResultCount": 260,
-          "Ingredients": {
-            "Ingredient": [
-              "Gunpowder \"Eagle\"",
-              "Gunpowder \"Kite\""
-            ],
-            "IngredientAmmount": [
-              2,
-              1
-            ]
-          }
-        },
-        {
-          "ResultItemName": "7.62x51 mm M61",
-          "ResultProfit": 0,
-          "IngredientPrice": 0,
-          "ResultCount": 300,
-          "Ingredients": {
-            "Ingredient": [
-              "Gunpowder \"Hawk\"",
-              "Radiator helix"
-            ],
-            "IngredientAmmount": [
-              6,
-              2
-            ]
-          }
-        },
-        {
-          "ResultItemName": "5.56x45 mm M995",
-          "ResultProfit": 0,
-          "IngredientPrice": 0,
-          "ResultCount": 300,
-          "Ingredients": {
-            "Ingredient": [
-              "Gunpowder \"Eagle\"",
-              "OFZ 30x160mm shell"
-            ],
-            "IngredientAmmount": [
-              2,
-              2
-            ]
-          }
-        },
-        {
-          "ResultItemName": "5.45x39 mm 7N39 \"Igolnik\"",
-          "ResultProfit": 0,
-          "IngredientPrice": 0,
-          "ResultCount": 260,
-          "Ingredients": {
-            "Ingredient": [
-              "Gunpowder \"Eagle\"",
-              "Gunpowder \"Kite\"",
-              "Gunpowder \"Hawk\""
-            ],
-            "IngredientAmmount": [
-              2,
-              2,
-              2
-            ]
-          }
-        },
-        {
-          "ResultItemName": "9x19 mm 7N31",
-          "ResultProfit": 0,
-          "IngredientPrice": 0,
-          "ResultCount": 300,
-          "Ingredients": {
-            "Ingredient": [
-              "Gunpowder \"Eagle\"",
-              "Gunpowder \"Kite\"",
-              "9x19 mm Pst gzh",
-              "A pack of nails"
-            ],
-            "IngredientAmmount": [
-              3,
-              4,
-              300,
-              4
-            ]
-          }
-        }
-      ]
-    }
-  }
-}

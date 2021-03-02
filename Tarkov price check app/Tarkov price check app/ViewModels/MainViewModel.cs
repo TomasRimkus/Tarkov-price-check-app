@@ -18,20 +18,17 @@ namespace Tarkov_price_check_app.ViewModels
                 {
                     var result = await ApiService.ApiServiceInstance.FindItemAsync(text);
                     ObsResults.Clear();
-                    ObsResults1.Clear();
 
                     foreach (var variable in result.Items)
                     {
-                        ObsResults1.Add(variable);
+                        ObsResults.Add(variable);
                     }
-                    ObsCollResults = ObsResults1;
                     SearchResults = result.Result;
                 }));
             }
         }
 
         public ObservableCollection<ApiResponseData> ObsResults = new ObservableCollection<ApiResponseData>();
-        public ObservableCollection<ApiResponseData> ObsResults1 = new ObservableCollection<ApiResponseData>();
 
         private string _searchresults = "";
 
