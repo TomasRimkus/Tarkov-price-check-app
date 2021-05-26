@@ -4,7 +4,7 @@
              xmlns:viewModels1="clr-namespace:Tarkov_price_check_app.ViewModels"
              x:Class="Tarkov_price_check_app.Views.PriceCheckPage">
     <ContentPage.BindingContext>
-        <viewModels1:MainViewModel/>
+        <viewModels1:ItemSearchViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
@@ -37,9 +37,9 @@
                                 <Frame>
                                     <StackLayout>
                                         <StackLayout Orientation="Horizontal">
-                                            <Image Source="{Binding EnImg}"/>
+                                            <Image Source="{Binding Img}"/>
                                             <Label Text="Item name"/>
-                                            <Label Text="{Binding EnName}"/>
+                                            <Label Text="{Binding Name}"/>
                                         </StackLayout>
                                         <StackLayout Orientation="Horizontal">
                                             <Label Text="Current Price"/>
@@ -47,7 +47,7 @@
                                         </StackLayout>
                                         <StackLayout Orientation="Horizontal">
                                             <Label Text="Average day price"/>
-                                            <Label Text="{Binding AvgDayPrice}"/>
+                                            <Label Text="{Binding Avg24hPrice}"/>
                                         </StackLayout>
                                         <StackLayout Orientation="Horizontal">
                                             <Label Text="Best trader to vendor"/>

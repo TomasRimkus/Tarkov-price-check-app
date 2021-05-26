@@ -6,7 +6,7 @@ using Xamarin.Forms;
 
 namespace Tarkov_price_check_app.ViewModels
 {
-    public class MainViewModel : BindableObject
+    public class ItemSearchViewModel : BindableObject
     {
         private ICommand _searchCommand;
 
@@ -16,14 +16,21 @@ namespace Tarkov_price_check_app.ViewModels
             {
                 return _searchCommand ?? (_searchCommand = new Command<string>(async (text) =>
                 {
-                    var result = await ApiService.ApiServiceInstance.FindItemAsync(text);
+                    var result = await TarkovMarketApiService.ApiServiceInstance.FindItemAsync(text);
                     ObsResults.Clear();
 
                     foreach (var variable in result.Items)
                     {
+                        string tempName = variable.Name.ToUpper();
+                        string tempSearch = text.ToUpper();
+                        if (tempName.Contains(tempSearch))
                         ObsResults.Add(variable);
                     }
-                    SearchResults = result.Result;
+
+                    if (result.Items.Count > 0)
+                        SearchResults = "ok";
+                    else
+                        SearchResults = "Empty";
                 }));
             }
         }
@@ -51,28 +58,24 @@ namespace Tarkov_price_check_app.ViewModels
                         _searchresults = $"Found {ObsResults.Count} items.";
                         OnPropertyChanged();
                     }
-                    else
-                    {
-                        _searchresults = "Item not found";
-                        OnPropertyChanged();
-                    }
                 }
-                else
+                else if (value == "Empty")
                 {
-                    _searchresults = "Search failed to connect";
+                    _searchresults = "Item not found";
                     OnPropertyChanged();
                 }
-                
+
             }
         }
         public ObservableCollection<ApiResponseData> ObsCollResults
-             {
+        {
             get => ObsResults;
 
-            set {
-             ObsResults = value;
-             OnPropertyChanged();
-        }
+            set
+            {
+                ObsResults = value;
+                OnPropertyChanged();
+            }
         }
     }
 }

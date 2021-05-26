@@ -10,21 +10,30 @@
         <StackLayout>
             <Label Text="" BackgroundColor="Transparent"></Label>
             <Label Text="{Binding SetStatus}"
-                   VerticalOptions="CenterAndExpand"
+                   VerticalOptions="Center"
                    HorizontalTextAlignment="Center"
                    FontAttributes="Bold"
                    />
 
             <Button IsEnabled="{Binding SetButtonStatus}" Command="{Binding RefreshCommand}" Text="Refresh prices" />
-
+            <Picker
+                Title="Crafting station" 
+                x:Name="SellectedStation"
+                ItemsSource="{Binding GetStationsList}"
+                SelectedIndex="{Binding SetCurrentStation}"
+                >
+            </Picker>
+            
             <StackLayout>
-
-                <Label Text="Intelligence center" HorizontalTextAlignment="Center" FontAttributes="Bold" BackgroundColor="LightGray"></Label>
+                <Label Text="Intelligence center" HorizontalTextAlignment="Center" FontAttributes="Bold" IsVisible="{Binding IsIntelVisible}" BackgroundColor="LightGray"></Label>
 
                 <ListView  
                     ItemsSource="{Binding IntelDataCollection}"
+                    IsVisible="{Binding IsIntelVisible}"
                     IsPullToRefreshEnabled="False"  
                     HasUnevenRows="true" 
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="CenterAndExpand"
                     SeparatorVisibility="Default">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -48,12 +57,15 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-                <Label Text="Lavatory" HorizontalTextAlignment="Center" FontAttributes="Bold" BackgroundColor="LightGray"></Label>
+                <Label Text="Lavatory" HorizontalTextAlignment="Center" FontAttributes="Bold" IsVisible="{Binding IsLavVisible}" BackgroundColor="LightGray"></Label>
 
                 <ListView  
                      ItemsSource="{Binding LavDataCollection}"
                      IsPullToRefreshEnabled="False"  
                      HasUnevenRows="true" 
+                     VerticalOptions="CenterAndExpand"
+                     HorizontalOptions="CenterAndExpand"
+                     IsVisible="{Binding IsLavVisible}"
                      SeparatorVisibility="Default">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -77,12 +89,15 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-                <Label Text="Workbench" HorizontalTextAlignment="Center" FontAttributes="Bold" BackgroundColor="LightGray"></Label>
+                <Label Text="Workbench" HorizontalTextAlignment="Center" FontAttributes="Bold" IsVisible="{Binding IsWorkVisible}" BackgroundColor="LightGray"></Label>
 
                 <ListView  
                      ItemsSource="{Binding WorkDataCollection}"
                      IsPullToRefreshEnabled="False"  
                      HasUnevenRows="true" 
+                     VerticalOptions="CenterAndExpand"
+                     HorizontalOptions="CenterAndExpand"
+                     IsVisible="{Binding IsWorkVisible}"
                      SeparatorVisibility="Default">
                 <ListView.ItemTemplate>
                     <DataTemplate>

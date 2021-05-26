@@ -1,15 +1,17 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using MvvmHelpers.Commands;
 using Newtonsoft.Json;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using Tarkov_price_check_app.Models;
 using Tarkov_price_check_app.Services;
 using Tarkov_price_check_app.Views;
 using Xamarin.Forms;
-using MvvmHelpers.Commands;
+using Command = Xamarin.Forms.Command;
 
 namespace Tarkov_price_check_app.ViewModels
 {
@@ -28,31 +30,31 @@ namespace Tarkov_price_check_app.ViewModels
             RefreshCommand = new AsyncCommand(Refresh);
         }
 
-        async Task Refresh()
+        private async Task Refresh()
         {
-            CalcPrices();
+            await CalcPrices();
         }
-
 
         public void LoadJson()
         {
+
             var assembly = typeof(HideoutPage).GetTypeInfo().Assembly;
             foreach (var res in assembly.GetManifestResourceNames())
             {
                 if (res.Contains("data.json"))
                 {
-                    Stream stream = assembly.GetManifestResourceStream(res);
+                    var stream = assembly.GetManifestResourceStream(res);
 
-                    using (StreamReader r = new StreamReader(stream))
+                    using (var r = new StreamReader(stream))
                     {
-                        string json = r.ReadToEnd();
+                        var json = r.ReadToEnd();
                         Results = JsonConvert.DeserializeObject<HideoutItems.FullItems>(json);
                     }
                 }
             }
         }
 
-        public async System.Threading.Tasks.Task CalcPricesAsync()
+        public async Task CalcPricesAsync()
         {
             foreach (var item in Results.Items)
             {
@@ -61,12 +63,12 @@ namespace Tarkov_price_check_app.ViewModels
 
                 for (int i = 0; i < item.Ingredients.Ingredient.Count; i++)
                 {
-                    var priceList = await ApiService.ApiServiceInstance.FindItemAsync(item.Ingredients.Ingredient[i]);
-                    ingredientTotalPrice += item.Ingredients.IngredientAmmount[i] * priceList.Items.First().AvgDayPrice;
+                    var priceList = await TarkovMarketApiService.ApiServiceInstance.FindItemAsync(item.Ingredients.Ingredient[i]);
+                    ingredientTotalPrice += item.Ingredients.IngredientAmount[i] * priceList.Items[0].Avg24hPrice;
                 }
 
-                var resultPriceList = await ApiService.ApiServiceInstance.FindItemAsync(item.ResultItemName);
-                int resultProfit = item.ResultCount * resultPriceList.Items.First().AvgDayPrice;
+                var resultPriceList = await TarkovMarketApiService.ApiServiceInstance.FindItemAsync(item.ResultItemName);
+                int resultProfit = item.ResultCount * resultPriceList.Items[0].Avg24hPrice;
                 item.ResultProfit = resultProfit - ingredientTotalPrice;
             }
         }
@@ -77,22 +79,22 @@ namespace Tarkov_price_check_app.ViewModels
             {
                 switch (item.Station)
                 {
-                    case "Intel":
+                    case HideoutItems.Stations.Intel:
                         IntelData.Add(item);
                         break;
-                    case "Lav":
+                    case HideoutItems.Stations.Lav:
                         LavaData.Add(item);
                         break;
-                    case "Work":
+                    case HideoutItems.Stations.Work:
                         WorkData.Add(item);
                         break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
             }
-
         }
 
-
-        public async void CalcPrices()
+        public async Task CalcPrices()
         {
 
             IntelData.Clear();
@@ -102,6 +104,7 @@ namespace Tarkov_price_check_app.ViewModels
             SetStatus = "Updating prices...";
             SetButtonStatus = false;
             LoadJson();
+           //neat stuff> await Task.WhenAll(new List<Task> { CalcPricesAsync(), CalcPricesAsync2() });
             await CalcPricesAsync();
             MoveItemsToStations();
             SetStatus = "Done";
@@ -109,41 +112,49 @@ namespace Tarkov_price_check_app.ViewModels
         }
 
         public ObservableCollection<HideoutItems.Item> IntelDataCollection
-                   {
-                       get => IntelData;
+        {
+            get => IntelData;
 
-                       set
-                       {
-                           IntelData = value;
-                           OnPropertyChanged();
-                       }
-                   }
+            set
+            {
+                IntelData = value;
+                OnPropertyChanged();
+            }
+        }
 
-                   public ObservableCollection<HideoutItems.Item> LavDataCollection
-                   {
-                       get => LavaData;
+        public ObservableCollection<HideoutItems.Item> LavDataCollection
+        {
+            get => LavaData;
 
-                       set
-                       {
-                           LavaData = value;
-                           OnPropertyChanged();
-                       }
-                   }
+            set
+            {
+                LavaData = value;
+                OnPropertyChanged();
+            }
+        }
 
-                   public ObservableCollection<HideoutItems.Item> WorkDataCollection
-                   {
-                       get => WorkData;
+        public ObservableCollection<HideoutItems.Item> WorkDataCollection
+        {
+            get => WorkData;
 
-                       set
-                       {
-                           WorkData = value;
-                           OnPropertyChanged();
-                       }
-                   }
+            set
+            {
+                WorkData = value;
+                OnPropertyChanged();
+            }
+        }
 
 
         public string Status = "Ready";
         public bool ButtonStatus = true;
+
+
+        public string[] StationsList = new string[3] { "Lavatory", "Intel Center", "Workbench" };
+
+        public bool IntelVisible = false;
+        public bool LavVisible = false;
+        public bool WorkVisible = false;
+        public int CurrentStation = -1;
 
         public string SetStatus
         {
@@ -163,6 +174,69 @@ namespace Tarkov_price_check_app.ViewModels
                 ButtonStatus = value;
                 OnPropertyChanged();
             }
+        }
+
+        public bool IsIntelVisible
+        {
+            get => IntelVisible;
+            set
+            {
+                IntelVisible = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool IsLavVisible
+        {
+            get => LavVisible;
+            set
+            {
+                LavVisible = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool IsWorkVisible
+        {
+            get => WorkVisible;
+            set
+            {
+                WorkVisible = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int SetCurrentStation
+        {
+            get => CurrentStation;
+            set
+            {
+                CurrentStation = value;
+                OnPropertyChanged();
+
+                if (value == 0)
+                {
+                    IsLavVisible = true;
+                    IsIntelVisible = false;
+                    IsWorkVisible = false;
+                }
+                else if (value == 1)
+                {
+                    IsIntelVisible = true;
+                    IsLavVisible = false;
+                    IsWorkVisible = false;
+                }
+                else if (value == 2)
+                {
+                    IsWorkVisible = true;
+                    IsLavVisible = false;
+                    IsIntelVisible = false;
+                }
+            }
+        }
+
+
+        public string[] GetStationsList
+        {
+            get => StationsList;
         }
     }
 }
