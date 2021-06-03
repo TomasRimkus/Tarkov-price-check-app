@@ -34,7 +34,7 @@ namespace Tarkov_price_check_app.Services
         {
 
             string encodedQuery = HttpUtility.UrlEncode(query);
-            var result = await _client.GetStringAsync($"https://tarkov-market.com/api/v1/item?q={encodedQuery}&x-api-key=tWhN9JZdA0iRl0AL");
+            var result = await _client.GetStringAsync($"https://tarkov-market.com/api/v1/item?q={encodedQuery}&x-api-key=");
 
             var objresult = JsonConvert.DeserializeObject<List<ApiResponseData>>(result);
             ResponseList.Items = objresult;
