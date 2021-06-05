@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json;
 using Tarkov_price_check_app.Models;
-using Tarkov_price_check_app.Resources;
 
 namespace Tarkov_price_check_app.Services
 {
@@ -22,9 +21,7 @@ namespace Tarkov_price_check_app.Services
             }
         }
 
-        private HttpClient _client;
-        private ApiResponse ResponseList = new ApiResponse();
-
+        private readonly HttpClient _client;
 
         public TarkovMarketApiService()
         {
@@ -33,20 +30,19 @@ namespace Tarkov_price_check_app.Services
 
         public async Task<ApiResponse> FindItemAsync(string query)
         {
-
             SensitiveData SensData = new SensitiveData();
-
-           
+            ApiResponse ResponseList = new ApiResponse();
             string encodedQuery = HttpUtility.UrlEncode(query);
 
             var result = await _client.GetStringAsync($"https://tarkov-market.com/api/v1/item?q={encodedQuery}&x-api-key={SensData.ApiKey}");
-
-            var objresult = JsonConvert.DeserializeObject<List<ApiResponseData>>(result);
-            ResponseList.Items = objresult;
+            ResponseList.Items = JsonConvert.DeserializeObject<List<ApiResponseData>>(result);
 
             return ResponseList;
         }
-
     }
 
+    public class SensitiveData
+    {
+        public string ApiKey { get; set; }
+    }
 }
