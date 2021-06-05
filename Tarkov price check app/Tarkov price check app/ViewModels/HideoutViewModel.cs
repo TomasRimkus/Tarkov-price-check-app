@@ -7,21 +7,20 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Tarkov_price_check_app.Models;
 using Tarkov_price_check_app.Services;
 using Tarkov_price_check_app.Views;
 using Xamarin.Forms;
-using Command = Xamarin.Forms.Command;
+using static Tarkov_price_check_app.Models.HideoutItems;
 
 namespace Tarkov_price_check_app.ViewModels
 {
     public class HideoutViewModel : BindableObject
     {
-        public HideoutItems.FullItems Results = new HideoutItems.FullItems();
+        public FullItems Results = new FullItems();
 
-        public ObservableCollection<HideoutItems.Item> IntelData = new ObservableCollection<HideoutItems.Item>();
-        public ObservableCollection<HideoutItems.Item> LavaData = new ObservableCollection<HideoutItems.Item>();
-        public ObservableCollection<HideoutItems.Item> WorkData = new ObservableCollection<HideoutItems.Item>();
+        public ObservableCollection<Item> IntelData = new ObservableCollection<Item>();
+        public ObservableCollection<Item> LavaData = new ObservableCollection<Item>();
+        public ObservableCollection<Item> WorkData = new ObservableCollection<Item>();
 
         public AsyncCommand RefreshCommand { get; }
 
@@ -37,7 +36,6 @@ namespace Tarkov_price_check_app.ViewModels
 
         public void LoadJson()
         {
-
             var assembly = typeof(HideoutPage).GetTypeInfo().Assembly;
             foreach (var res in assembly.GetManifestResourceNames())
             {
@@ -48,7 +46,7 @@ namespace Tarkov_price_check_app.ViewModels
                     using (var r = new StreamReader(stream))
                     {
                         var json = r.ReadToEnd();
-                        Results = JsonConvert.DeserializeObject<HideoutItems.FullItems>(json);
+                        Results = JsonConvert.DeserializeObject<FullItems>(json);
                     }
                     foreach (var item in Results.Items)
                     {
@@ -81,46 +79,42 @@ namespace Tarkov_price_check_app.ViewModels
 
         public async Task CalcPricesAsync()
         {
-            List<Task<int>> Tasklist = new List<Task<int>>();
-            foreach (var item in Results.Items)
-            {
-                Tasklist.Add(GetProfit(item));
-            }
+            List<Task<int>> Tasklist = Results.Items.Select(item => GetProfit(item)).ToList();
             var results = await Task.WhenAll(Tasklist);
-            int badPracticeIndex = 0;
+
             foreach (var item in Results.Items)
             {
-                item.ResultProfit = results[badPracticeIndex];
-                badPracticeIndex++;
+                item.ResultProfit = results[Results.Items.IndexOf(item)];
             }
         }
 
 
-        public async Task<int> GetProfit(HideoutItems.Item Item)
+        public async Task<int> GetProfit(Item Item)
         {
-            var resultPriceList = await TarkovMarketApiService.ApiServiceInstance.FindItemAsync(Item.ResultItemName);
+            var resultPriceListTask = TarkovMarketApiService.ApiServiceInstance.FindItemAsync(Item.ResultItemName);
+            var IngredientPriceTask = GetIngredientPrice(Item);
+
+            await Task.WhenAll(resultPriceListTask, IngredientPriceTask);
+
+            var resultPriceList = resultPriceListTask.Result;
+            var IngredientPrice = IngredientPriceTask.Result;
+
             int resultProfit = Item.ResultCount * resultPriceList.Items[0].Avg24hPrice;
-            var IngredientPrice = Task.Run(() => GetIngredientPrice(Item));
-            int NetProfit = resultProfit - IngredientPrice.Result.Sum();
-            return resultProfit - IngredientPrice.Result.Sum();
+            int NetProfit = resultProfit - IngredientPrice.Sum();
+            return NetProfit;
         }
 
 
         public async Task<int> GetSingleIngredientPrice(string Item, int ammount)
         {
             var resultPriceList = await TarkovMarketApiService.ApiServiceInstance.FindItemAsync(Item);
-            int totalPrice = resultPriceList.Items[0].Avg24hPrice * ammount;
             return resultPriceList.Items[0].Avg24hPrice * ammount;
         }
 
-        public async Task<int[]> GetIngredientPrice(HideoutItems.Item Item)
+        public async Task<int[]> GetIngredientPrice(Item Item)
         {
-            List<Task<int>> Tasklist = new List<Task<int>>();
-            foreach (var item in Item.Ingredients.IngredientDictionary)
-            {
-                Tasklist.Add(GetSingleIngredientPrice(item.Key, item.Value));
-            }
-           // var results = await Task.WhenAll(Tasklist);
+            List<Task<int>> Tasklist = Item.Ingredients.IngredientDictionary.Select(item => GetSingleIngredientPrice(item.Key, item.Value)).ToList();
+
             return await Task.WhenAll(Tasklist);
         }
 
@@ -130,13 +124,13 @@ namespace Tarkov_price_check_app.ViewModels
             {
                 switch (item.Station)
                 {
-                    case HideoutItems.Stations.Intel:
+                    case Stations.Intel:
                         IntelData.Add(item);
                         break;
-                    case HideoutItems.Stations.Lav:
+                    case Stations.Lav:
                         LavaData.Add(item);
                         break;
-                    case HideoutItems.Stations.Work:
+                    case Stations.Work:
                         WorkData.Add(item);
                         break;
                     default:
@@ -147,7 +141,6 @@ namespace Tarkov_price_check_app.ViewModels
 
         public async Task CalcPrices()
         {
-
             IntelData.Clear();
             LavaData.Clear();
             WorkData.Clear();
@@ -162,7 +155,7 @@ namespace Tarkov_price_check_app.ViewModels
             SetButtonStatus = true;
         }
 
-        public ObservableCollection<HideoutItems.Item> IntelDataCollection
+        public ObservableCollection<Item> IntelDataCollection
         {
             get => IntelData;
 
@@ -173,7 +166,7 @@ namespace Tarkov_price_check_app.ViewModels
             }
         }
 
-        public ObservableCollection<HideoutItems.Item> LavDataCollection
+        public ObservableCollection<Item> LavDataCollection
         {
             get => LavaData;
 
@@ -184,7 +177,7 @@ namespace Tarkov_price_check_app.ViewModels
             }
         }
 
-        public ObservableCollection<HideoutItems.Item> WorkDataCollection
+        public ObservableCollection<Item> WorkDataCollection
         {
             get => WorkData;
 
