@@ -50,11 +50,16 @@ namespace Tarkov_price_check_app.ViewModels
                         var json = r.ReadToEnd();
                         Results = JsonConvert.DeserializeObject<HideoutItems.FullItems>(json);
                     }
+                    foreach (var item in Results.Items)
+                    {
+                        item.Ingredients.IngredientDictionary = item.Ingredients.Ingredient.Zip(item.Ingredients.IngredientAmount, (k, v) => new { Key = k, Value = v })
+                     .ToDictionary(x => x.Key, x => x.Value);
+                    }
                 }
             }
         }
 
-        public async Task CalcPricesAsync()
+        /*public async Task CalcPricesAsync()
         {
             foreach (var item in Results.Items)
             {
@@ -71,6 +76,52 @@ namespace Tarkov_price_check_app.ViewModels
                 int resultProfit = item.ResultCount * resultPriceList.Items[0].Avg24hPrice;
                 item.ResultProfit = resultProfit - ingredientTotalPrice;
             }
+        }
+        */
+
+        public async Task CalcPricesAsync()
+        {
+            List<Task<int>> Tasklist = new List<Task<int>>();
+            foreach (var item in Results.Items)
+            {
+                Tasklist.Add(GetProfit(item));
+            }
+            var results = await Task.WhenAll(Tasklist);
+            int badPracticeIndex = 0;
+            foreach (var item in Results.Items)
+            {
+                item.ResultProfit = results[badPracticeIndex];
+                badPracticeIndex++;
+            }
+        }
+
+
+        public async Task<int> GetProfit(HideoutItems.Item Item)
+        {
+            var resultPriceList = await TarkovMarketApiService.ApiServiceInstance.FindItemAsync(Item.ResultItemName);
+            int resultProfit = Item.ResultCount * resultPriceList.Items[0].Avg24hPrice;
+            var IngredientPrice = Task.Run(() => GetIngredientPrice(Item));
+            int NetProfit = resultProfit - IngredientPrice.Result.Sum();
+            return resultProfit - IngredientPrice.Result.Sum();
+        }
+
+
+        public async Task<int> GetSingleIngredientPrice(string Item, int ammount)
+        {
+            var resultPriceList = await TarkovMarketApiService.ApiServiceInstance.FindItemAsync(Item);
+            int totalPrice = resultPriceList.Items[0].Avg24hPrice * ammount;
+            return resultPriceList.Items[0].Avg24hPrice * ammount;
+        }
+
+        public async Task<int[]> GetIngredientPrice(HideoutItems.Item Item)
+        {
+            List<Task<int>> Tasklist = new List<Task<int>>();
+            foreach (var item in Item.Ingredients.IngredientDictionary)
+            {
+                Tasklist.Add(GetSingleIngredientPrice(item.Key, item.Value));
+            }
+           // var results = await Task.WhenAll(Tasklist);
+            return await Task.WhenAll(Tasklist);
         }
 
         public void MoveItemsToStations()

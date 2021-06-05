@@ -15,6 +15,7 @@ namespace Tarkov_price_check_app.Models
         {
             public List<string> Ingredient { get; set; }
             public List<int> IngredientAmount { get; set; }
+            public Dictionary<string, int> IngredientDictionary { get; set; }
         }
 
         public class Item
