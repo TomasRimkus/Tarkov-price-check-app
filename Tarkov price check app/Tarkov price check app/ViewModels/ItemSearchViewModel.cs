@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Tarkov_price_check_app.Models;
 using Tarkov_price_check_app.Services;
@@ -8,6 +9,11 @@ namespace Tarkov_price_check_app.ViewModels
 {
     public class ItemSearchViewModel : BindableObject
     {
+        public ItemSearchViewModel()
+        {
+            Task.Run(() => this.HandleNamesList()).Wait();
+        }
+
         private ICommand _searchCommand;
 
         public ICommand SearchCommand
@@ -16,7 +22,7 @@ namespace Tarkov_price_check_app.ViewModels
             {
                 return _searchCommand ?? (_searchCommand = new Command<string>(async (text) =>
                 {
-                    var result = await TarkovMarketApiService.ApiServiceInstance.FindItemAsync(text);
+                    var result = await TarkovMarketApiService.ApiServiceInstance.FindItem(text);
                     ObsResults.Clear();
 
                     foreach (var variable in result.Items)
@@ -24,7 +30,7 @@ namespace Tarkov_price_check_app.ViewModels
                         string tempName = variable.Name.ToUpper();
                         string tempSearch = text.ToUpper();
                         if (tempName.Contains(tempSearch))
-                        ObsResults.Add(variable);
+                            ObsResults.Add(variable);
                     }
 
                     if (result.Items.Count > 0)
@@ -36,6 +42,14 @@ namespace Tarkov_price_check_app.ViewModels
         }
 
         public ObservableCollection<ApiResponseData> ObsResults = new ObservableCollection<ApiResponseData>();
+        public ObservableCollection<ItemsListData> ObsItemNames;
+
+        private async Task HandleNamesList()
+        {
+            var result = await TarkovMarketApiService.ApiServiceInstance.GetAllItemNames();
+            ObsItemNames = new ObservableCollection<ItemsListData>(result.ItemNames);
+        }
+
 
         private string _searchresults = "";
 
@@ -67,6 +81,7 @@ namespace Tarkov_price_check_app.ViewModels
 
             }
         }
+
         public ObservableCollection<ApiResponseData> ObsCollResults
         {
             get => ObsResults;

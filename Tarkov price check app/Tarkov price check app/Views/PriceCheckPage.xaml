@@ -31,7 +31,7 @@
                 HasUnevenRows="true" 
                 SeparatorVisibility="Default">
                 <ListView.ItemTemplate>
-                <DataTemplate>
+                    <DataTemplate>
                         <ViewCell>
                             <Grid>
                                 <Frame>
@@ -59,7 +59,7 @@
                                             <Label Text="Last updated"/>
                                             <Label Text="{Binding Updated}"/>
                                         </StackLayout>
-                                        </StackLayout>
+                                    </StackLayout>
                                 </Frame>
                             </Grid>
                         </ViewCell>

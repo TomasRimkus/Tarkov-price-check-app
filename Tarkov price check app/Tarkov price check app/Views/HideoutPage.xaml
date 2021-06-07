@@ -23,7 +23,7 @@
                 SelectedIndex="{Binding SetCurrentStation}"
                 >
             </Picker>
-            
+
             <StackLayout>
                 <Label Text="Intelligence center" HorizontalTextAlignment="Center" FontAttributes="Bold" IsVisible="{Binding IsIntelVisible}" BackgroundColor="LightGray"></Label>
 
@@ -35,27 +35,27 @@
                     VerticalOptions="CenterAndExpand"
                     HorizontalOptions="CenterAndExpand"
                     SeparatorVisibility="Default">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Grid>
-                                <Frame>
-                                    <StackLayout>
-                                        <StackLayout Orientation="Horizontal">
-                                            <Label Text="Item name"/>
-                                            <Label Text="{Binding ResultItemName}"/>
-                                        </StackLayout>
-                                        <StackLayout Orientation="Horizontal">
-                                            <Label Text="Current profit"/>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Frame>
+                                        <StackLayout>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="Item name"/>
+                                                <Label Text="{Binding ResultItemName}"/>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="Current profit"/>
                                                 <Label Text="{Binding ResultProfit}"/>
+                                            </StackLayout>
                                         </StackLayout>
-                                    </StackLayout>
-                                </Frame>
-                            </Grid>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                                    </Frame>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
                 <Label Text="Lavatory" HorizontalTextAlignment="Center" FontAttributes="Bold" IsVisible="{Binding IsLavVisible}" BackgroundColor="LightGray"></Label>
 
@@ -67,27 +67,27 @@
                      HorizontalOptions="CenterAndExpand"
                      IsVisible="{Binding IsLavVisible}"
                      SeparatorVisibility="Default">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Grid>
-                                <Frame>
-                                    <StackLayout>
-                                        <StackLayout Orientation="Horizontal">
-                                            <Label Text="Item name"/>
-                                            <Label Text="{Binding ResultItemName}"/>
-                                        </StackLayout>
-                                        <StackLayout Orientation="Horizontal">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Frame>
+                                        <StackLayout>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="Item name"/>
+                                                <Label Text="{Binding ResultItemName}"/>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal">
                                                 <Label Text="Current profit"/>
                                                 <Label Text="{Binding ResultProfit}"/>
+                                            </StackLayout>
                                         </StackLayout>
-                                    </StackLayout>
-                                </Frame>
-                            </Grid>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                                    </Frame>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
                 <Label Text="Workbench" HorizontalTextAlignment="Center" FontAttributes="Bold" IsVisible="{Binding IsWorkVisible}" BackgroundColor="LightGray"></Label>
 
@@ -99,27 +99,27 @@
                      HorizontalOptions="CenterAndExpand"
                      IsVisible="{Binding IsWorkVisible}"
                      SeparatorVisibility="Default">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Grid>
-                                <Frame>
-                                    <StackLayout>
-                                        <StackLayout Orientation="Horizontal">
-                                            <Label Text="Item name"/>
-                                            <Label Text="{Binding ResultItemName}"/>
-                                        </StackLayout>
-                                        <StackLayout Orientation="Horizontal">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Frame>
+                                        <StackLayout>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="Item name"/>
+                                                <Label Text="{Binding ResultItemName}"/>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal">
                                                 <Label Text="Current profit"/>
                                                 <Label Text="{Binding ResultProfit}"/>
+                                            </StackLayout>
                                         </StackLayout>
-                                    </StackLayout>
-                                </Frame>
-                            </Grid>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                                    </Frame>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

@@ -57,26 +57,6 @@ namespace Tarkov_price_check_app.ViewModels
             }
         }
 
-        /*public async Task CalcPricesAsync()
-        {
-            foreach (var item in Results.Items)
-            {
-                item.ResultProfit = 0;
-                int ingredientTotalPrice = 0;
-
-                for (int i = 0; i < item.Ingredients.Ingredient.Count; i++)
-                {
-                    var priceList = await TarkovMarketApiService.ApiServiceInstance.FindItemAsync(item.Ingredients.Ingredient[i]);
-                    ingredientTotalPrice += item.Ingredients.IngredientAmount[i] * priceList.Items[0].Avg24hPrice;
-                }
-
-                var resultPriceList = await TarkovMarketApiService.ApiServiceInstance.FindItemAsync(item.ResultItemName);
-                int resultProfit = item.ResultCount * resultPriceList.Items[0].Avg24hPrice;
-                item.ResultProfit = resultProfit - ingredientTotalPrice;
-            }
-        }
-        */
-
         public async Task CalcPricesAsync()
         {
             List<Task<int>> Tasklist = Results.Items.Select(item => GetProfit(item)).ToList();
@@ -91,7 +71,7 @@ namespace Tarkov_price_check_app.ViewModels
 
         public async Task<int> GetProfit(Item Item)
         {
-            var resultPriceListTask = TarkovMarketApiService.ApiServiceInstance.FindItemAsync(Item.ResultItemName);
+            var resultPriceListTask = TarkovMarketApiService.ApiServiceInstance.FindItem(Item.ResultItemName);
             var IngredientPriceTask = GetIngredientPrice(Item);
 
             await Task.WhenAll(resultPriceListTask, IngredientPriceTask);
@@ -107,7 +87,7 @@ namespace Tarkov_price_check_app.ViewModels
 
         public async Task<int> GetSingleIngredientPrice(string Item, int ammount)
         {
-            var resultPriceList = await TarkovMarketApiService.ApiServiceInstance.FindItemAsync(Item);
+            var resultPriceList = await TarkovMarketApiService.ApiServiceInstance.FindItem(Item);
             return resultPriceList.Items[0].Avg24hPrice * ammount;
         }
 
@@ -148,7 +128,6 @@ namespace Tarkov_price_check_app.ViewModels
             SetStatus = "Updating prices...";
             SetButtonStatus = false;
             LoadJson();
-           //neat stuff> await Task.WhenAll(new List<Task> { CalcPricesAsync(), CalcPricesAsync2() });
             await CalcPricesAsync();
             MoveItemsToStations();
             SetStatus = "Done";
