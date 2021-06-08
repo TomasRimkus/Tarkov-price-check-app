@@ -2,13 +2,19 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels1="clr-namespace:Tarkov_price_check_app.ViewModels"
+             x:Name="ItemSearchPage"
              x:Class="Tarkov_price_check_app.Views.PriceCheckPage">
     <ContentPage.BindingContext>
         <viewModels1:ItemSearchViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
-
+            <Label 
+                Text="{Binding SearchText2, Mode=TwoWay}"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="Large"
+            />
 
             <Label 
                 Text="{Binding SearchResults, UpdateSourceEventName=PropertyChanged, Mode=OneWay}"
@@ -16,18 +22,54 @@
                 HorizontalOptions="CenterAndExpand" 
                 FontSize="Large"
             />
-
-            <SearchBar
+            
+            <StackLayout>
+                <SearchBar
                 Placeholder="Search items"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" 
-                 x:Name="SearchBar" SearchCommand="{Binding SearchCommand}" SearchCommandParameter="{Binding Text, Source={x:Reference SearchBar}}"
+                Text="{Binding SearchText, Mode=TwoWay}"
+                SearchCommand="{Binding SearchCommand}" SearchCommandParameter="{Binding SearchText, Mode=TwoWay}"
                 />
+
+            <ListView  
+                ItemsSource="{Binding SearchTextSuggestions}"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="Center"
+                IsPullToRefreshEnabled="False"  
+                HasUnevenRows="true" 
+                IsVisible="{Binding SuggestionsVisible}"
+                SeparatorVisibility="Default">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Frame>
+                                    <StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Button 
+                                                    Command="{Binding Path=BindingContext. ChangeSearchCommand, Source={x:Reference Name=ItemSearchPage}}"
+                                                    CommandParameter="{Binding Name}" 
+                                                    Text="{Binding Name}"
+                                                    BorderColor="White"
+                                                    VerticalOptions="CenterAndExpand" 
+                                                    BackgroundColor="LightBlue"
+                                                    FontSize="Small"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Frame>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+
+                </ListView.ItemTemplate>
+            </ListView>
+            </StackLayout>
+
 
             <ListView  
                 ItemsSource="{Binding ObsCollResults}"
                 IsPullToRefreshEnabled="False"  
-                x:Name="Results" 
                 HasUnevenRows="true" 
                 SeparatorVisibility="Default">
                 <ListView.ItemTemplate>

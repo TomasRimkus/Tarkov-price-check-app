@@ -8,12 +8,14 @@
 
   <ItemGroup>
     <None Remove="Resources\data.json" />
+    <None Remove="Resources\SensitiveData.txt" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\data.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\SensitiveData.txt" />
   </ItemGroup>
 
   <ItemGroup>
