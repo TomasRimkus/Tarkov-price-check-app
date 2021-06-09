@@ -18,7 +18,7 @@
                 HorizontalOptions="CenterAndExpand" 
                 FontSize="Large"
             />
-            
+
             <StackLayout>
                 <SearchBar
                 Placeholder="Search items"
@@ -28,7 +28,7 @@
                 SearchCommand="{Binding SearchCommand}" SearchCommandParameter="{Binding SearchText, Mode=TwoWay}"
                 />
 
-            <ListView  
+                <ListView  
                 ItemsSource="{Binding SearchTextSuggestions}"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="Center"
@@ -36,14 +36,14 @@
                 HasUnevenRows="true" 
                 IsVisible="{Binding SuggestionsVisible}"
                 SeparatorVisibility="Default">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Grid>
-                                <Frame>
-                                    <StackLayout>
-                                        <StackLayout Orientation="Horizontal">
-                                            <Button 
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Frame>
+                                        <StackLayout>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Button 
                                                     Command="{Binding Path=BindingContext.ChangeSearchCommand, Source={x:Reference Name=ItemSearchPage}}"
                                                     CommandParameter="{Binding Name}" 
                                                     Text="{Binding Name}"
@@ -51,15 +51,15 @@
                                                     VerticalOptions="CenterAndExpand" 
                                                     BackgroundColor="LightBlue"
                                                     FontSize="Small"/>
+                                            </StackLayout>
                                         </StackLayout>
-                                    </StackLayout>
-                                </Frame>
-                            </Grid>
-                        </ViewCell>
-                    </DataTemplate>
+                                    </Frame>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
 
-                </ListView.ItemTemplate>
-            </ListView>
+                    </ListView.ItemTemplate>
+                </ListView>
             </StackLayout>
 
 

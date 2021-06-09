@@ -8,13 +8,19 @@ using Xamarin.Forms;
 
 namespace Tarkov_price_check_app.ViewModels
 {
-    public class PriceCheckViewModel : BindableObject, IPriceCheckViewModel
+    public class PriceCheckViewModel : BindableObject
     {
         ITarkovMarketApiService _tarkovMarketApiService;
-        public PriceCheckViewModel(ITarkovMarketApiService tarkovMarketApiService)
+        INameListHandler _nameListHandler;
+
+
+        public PriceCheckViewModel(ITarkovMarketApiService tarkovMarketApiService, INameListHandler nameListHandler)
         {
             _tarkovMarketApiService = tarkovMarketApiService;
-            Task.Run(() => this.HandleNamesList()).Wait();
+            _nameListHandler = nameListHandler;
+
+            _ = UpdateSavedNamesList();
+            GetSavedNamesList();
         }
 
         private string searchText;
@@ -69,10 +75,15 @@ namespace Tarkov_price_check_app.ViewModels
             }
         }
 
-        private async Task HandleNamesList()
+        private void GetSavedNamesList()
+        {
+            var savedResult = _nameListHandler.SavedList;
+            ObsItemNames = new ObservableCollection<ItemsListData>(savedResult.Distinct().ToList());
+        }
+        private async Task UpdateSavedNamesList()
         {
             var result = await _tarkovMarketApiService.GetAllItemNames();
-            ObsItemNames = new ObservableCollection<ItemsListData>(result.ItemNames.Distinct().ToList());
+            _nameListHandler.SavedList = result.ItemNames;
         }
 
         public void UpdateSearchText(string text)

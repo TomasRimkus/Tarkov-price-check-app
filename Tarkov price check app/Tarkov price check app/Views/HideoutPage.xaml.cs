@@ -12,11 +12,12 @@ namespace Tarkov_price_check_app.Views
     {
         public HideoutPage()
         {
+            InitializeComponent();
             var container = ContainerConfig.Configure();
 
             using (var scope = container.BeginLifetimeScope())
             {
-                var Service = scope.Resolve<IHideoutViewModel>();
+                var Service = scope.Resolve<HideoutViewModel>();
                 BindingContext = Service;
             }
         }

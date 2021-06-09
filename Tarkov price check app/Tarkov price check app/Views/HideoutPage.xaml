@@ -10,7 +10,7 @@
                    HorizontalTextAlignment="Center"
                    FontAttributes="Bold"
                    />
-           
+
             <Button IsEnabled="{Binding SetButtonStatus}" Command="{Binding RefreshCommand}" Text="Refresh prices" />
             <Picker
                 Title="Crafting station" 

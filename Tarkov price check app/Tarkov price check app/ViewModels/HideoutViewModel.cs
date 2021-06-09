@@ -13,7 +13,7 @@ using static Tarkov_price_check_app.Models.HideoutItems;
 
 namespace Tarkov_price_check_app.ViewModels
 {
-    public class HideoutViewModel : BindableObject, IHideoutViewModel
+    public class HideoutViewModel : BindableObject
     {
         readonly ITarkovMarketApiService _tarkovMarketApiService;
         public HideoutViewModel(ITarkovMarketApiService tarkovMarketApiService)

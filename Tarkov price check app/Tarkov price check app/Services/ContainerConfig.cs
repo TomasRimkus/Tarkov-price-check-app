@@ -9,8 +9,9 @@ namespace Tarkov_price_check_app.Services
         {
             var builder = new ContainerBuilder();
             builder.RegisterType<TarkovMarketApiService>().As<ITarkovMarketApiService>();
-            builder.RegisterType<HideoutViewModel>().As<IHideoutViewModel>();
-            builder.RegisterType<PriceCheckViewModel>().As<IPriceCheckViewModel>();
+            builder.RegisterType<NameListHandler>().As<INameListHandler>();
+            builder.RegisterType<HideoutViewModel>().AsSelf();
+            builder.RegisterType<PriceCheckViewModel>().AsSelf();
             return builder.Build();
         }
     }
