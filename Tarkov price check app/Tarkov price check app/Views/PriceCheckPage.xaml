@@ -1,12 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewModels1="clr-namespace:Tarkov_price_check_app.ViewModels"
              x:Name="ItemSearchPage"
              x:Class="Tarkov_price_check_app.Views.PriceCheckPage">
-    <ContentPage.BindingContext>
-        <viewModels1:ItemSearchViewModel/>
-    </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
             <Label 
@@ -48,7 +44,7 @@
                                     <StackLayout>
                                         <StackLayout Orientation="Horizontal">
                                             <Button 
-                                                    Command="{Binding Path=BindingContext. ChangeSearchCommand, Source={x:Reference Name=ItemSearchPage}}"
+                                                    Command="{Binding Path=BindingContext.ChangeSearchCommand, Source={x:Reference Name=ItemSearchPage}}"
                                                     CommandParameter="{Binding Name}" 
                                                     Text="{Binding Name}"
                                                     BorderColor="White"

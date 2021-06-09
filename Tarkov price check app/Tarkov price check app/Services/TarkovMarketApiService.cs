@@ -11,16 +11,7 @@ namespace Tarkov_price_check_app.Services
 {
     public class TarkovMarketApiService : ITarkovMarketApiService
     {
-        private static readonly TarkovMarketApiService _apiServiceInstance = new TarkovMarketApiService();
         private static readonly HttpClient Client = new HttpClient();
-
-        public static TarkovMarketApiService ApiServiceInstance
-        {
-            get
-            {
-                return _apiServiceInstance;
-            }
-        }
 
         public async Task<ApiResponse> FindItem(string query)
         {

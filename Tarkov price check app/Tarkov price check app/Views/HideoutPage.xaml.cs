@@ -1,14 +1,9 @@
-﻿using System;
+﻿using Autofac;
 using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using Newtonsoft.Json;
-using Tarkov_price_check_app.Models;
 using Tarkov_price_check_app.Services;
+using Tarkov_price_check_app.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-
 
 namespace Tarkov_price_check_app.Views
 {
@@ -17,7 +12,14 @@ namespace Tarkov_price_check_app.Views
     {
         public HideoutPage()
         {
-            InitializeComponent();
+            var container = ContainerConfig.Configure();
+
+            using (var scope = container.BeginLifetimeScope())
+            {
+                var Service = scope.Resolve<IHideoutViewModel>();
+                BindingContext = Service;
+            }
         }
     }
 }
+

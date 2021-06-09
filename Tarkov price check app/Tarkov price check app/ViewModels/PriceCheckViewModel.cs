@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Tarkov_price_check_app.Models;
@@ -7,10 +8,12 @@ using Xamarin.Forms;
 
 namespace Tarkov_price_check_app.ViewModels
 {
-    public class ItemSearchViewModel : BindableObject
+    public class PriceCheckViewModel : BindableObject, IPriceCheckViewModel
     {
-        public ItemSearchViewModel()
+        ITarkovMarketApiService _tarkovMarketApiService;
+        public PriceCheckViewModel(ITarkovMarketApiService tarkovMarketApiService)
         {
+            _tarkovMarketApiService = tarkovMarketApiService;
             Task.Run(() => this.HandleNamesList()).Wait();
         }
 
@@ -46,7 +49,7 @@ namespace Tarkov_price_check_app.ViewModels
             {
                 return _searchCommand ?? (_searchCommand = new Command<string>(async (text) =>
                 {
-                    var result = await TarkovMarketApiService.ApiServiceInstance.FindItem(text);
+                    var result = await _tarkovMarketApiService.FindItem(text);
                     ObsResults.Clear();
                     SuggestionsVisible = false;
 
@@ -68,8 +71,8 @@ namespace Tarkov_price_check_app.ViewModels
 
         private async Task HandleNamesList()
         {
-            var result = await TarkovMarketApiService.ApiServiceInstance.GetAllItemNames();
-            ObsItemNames = new ObservableCollection<ItemsListData>(result.ItemNames);
+            var result = await _tarkovMarketApiService.GetAllItemNames();
+            ObsItemNames = new ObservableCollection<ItemsListData>(result.ItemNames.Distinct().ToList());
         }
 
         public void UpdateSearchText(string text)
@@ -80,7 +83,7 @@ namespace Tarkov_price_check_app.ViewModels
 
         private void PopulateSuggestionList()
         {
-            if (SearchText.Length > 3)
+            if (SearchText.Length > 2)
             {
                 tempSearchTextSuggestions.Clear();
                 foreach (var item in ObsItemNames)

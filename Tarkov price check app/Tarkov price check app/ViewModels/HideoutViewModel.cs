@@ -13,8 +13,15 @@ using static Tarkov_price_check_app.Models.HideoutItems;
 
 namespace Tarkov_price_check_app.ViewModels
 {
-    public class HideoutViewModel : BindableObject
+    public class HideoutViewModel : BindableObject, IHideoutViewModel
     {
+        readonly ITarkovMarketApiService _tarkovMarketApiService;
+        public HideoutViewModel(ITarkovMarketApiService tarkovMarketApiService)
+        {
+            _tarkovMarketApiService = tarkovMarketApiService;
+            RefreshCommand = new AsyncCommand(Refresh);
+        }
+
         private FullItems Results = new FullItems();
 
         private ObservableCollection<Item> IntelData = new ObservableCollection<Item>();
@@ -34,11 +41,6 @@ namespace Tarkov_price_check_app.ViewModels
         private int CurrentStation = -1;
 
         public AsyncCommand RefreshCommand { get; }
-
-        public HideoutViewModel()
-        {
-            RefreshCommand = new AsyncCommand(Refresh);
-        }
 
         private async Task Refresh()
         {
@@ -80,7 +82,7 @@ namespace Tarkov_price_check_app.ViewModels
 
         private async Task<int> GetProfit(Item Item)
         {
-            var resultPriceListTask = TarkovMarketApiService.ApiServiceInstance.FindItem(Item.ResultItemName);
+            var resultPriceListTask = _tarkovMarketApiService.FindItem(Item.ResultItemName);
             var IngredientPriceTask = GetIngredientPrice(Item);
 
             await Task.WhenAll(resultPriceListTask, IngredientPriceTask);
@@ -99,7 +101,7 @@ namespace Tarkov_price_check_app.ViewModels
 
         private async Task<int> GetSingleIngredientPrice(string Item, int ammount)
         {
-            var resultPriceList = await TarkovMarketApiService.ApiServiceInstance.FindItem(Item);
+            var resultPriceList = await _tarkovMarketApiService.FindItem(Item);
             if (resultPriceList.Items.Count > 0)
             {
                 return resultPriceList.Items[0].Avg24hPrice * ammount;
