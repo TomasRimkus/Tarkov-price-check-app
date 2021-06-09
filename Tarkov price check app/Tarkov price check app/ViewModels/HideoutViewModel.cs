@@ -26,7 +26,7 @@ namespace Tarkov_price_check_app.ViewModels
         private bool ButtonStatus = true;
 
 
-        private string[] StationsList = new string[3] { "Lavatory", "Intel Center", "Workbench" };
+        private readonly string[] StationsList = new string[3] { "Lavatory", "Intel Center", "Workbench" };
 
         private bool IntelVisible = false;
         private bool LavVisible = false;

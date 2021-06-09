@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Tarkov_price_check_app.Models
 {
-    public class FullItemsList
+    public class FullItemsList : IFullItemsList
     {
         public List<ItemsListData> ItemNames { get; set; }
     }

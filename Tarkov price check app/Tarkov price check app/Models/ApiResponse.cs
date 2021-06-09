@@ -6,7 +6,7 @@ using System.Text;
 namespace Tarkov_price_check_app.Models
 {
 
-    public class ApiResponse
+    public class ApiResponse : IApiResponse
     {
         public List<ApiResponseData> Items { get; set; }
     }

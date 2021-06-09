@@ -35,6 +35,7 @@ namespace Tarkov_price_check_app.ViewModels
                 return _changeSearchCommand ?? (_changeSearchCommand = new Command<string>((text) =>
                 {
                     UpdateSearchText(text);
+                    SearchCommand.Execute(text);
                 }));
             }
         }

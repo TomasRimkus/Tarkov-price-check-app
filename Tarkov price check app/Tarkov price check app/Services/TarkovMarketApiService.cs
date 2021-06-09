@@ -9,12 +9,12 @@ using Tarkov_price_check_app.Models;
 
 namespace Tarkov_price_check_app.Services
 {
-    public class TarkovMarketApiService
+    public class TarkovMarketApiService : ITarkovMarketApiService
     {
-        private static readonly TarkovMarketApiService _apiServiceInstance = new TarkovMarketApiService();
+        private readonly TarkovMarketApiService _apiServiceInstance = new TarkovMarketApiService();
         private static readonly HttpClient Client = new HttpClient();
 
-        public static TarkovMarketApiService ApiServiceInstance
+        public TarkovMarketApiService ApiServiceInstance
         {
             get
             {
@@ -50,19 +50,19 @@ namespace Tarkov_price_check_app.Services
             var assembly = Assembly.GetExecutingAssembly();
             var stream = assembly.GetManifestResourceStream(fileName);
 
-             if (stream == null)
-             {
-                 throw new FileNotFoundException("Cannot find API key file.", fileName);
-             }
-             string key = "";
+            if (stream == null)
+            {
+                throw new FileNotFoundException("Cannot find API key file.", fileName);
+            }
+            string key = "";
 
 
-             using (var reader = new System.IO.StreamReader(stream))
-             {
-                 key = reader.ReadToEnd();
-             }
+            using (var reader = new System.IO.StreamReader(stream))
+            {
+                key = reader.ReadToEnd();
+            }
 
-             return key;
+            return key;
         }
 
     }
