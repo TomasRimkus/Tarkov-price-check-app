@@ -11,10 +11,10 @@ namespace Tarkov_price_check_app.Services
 {
     public class TarkovMarketApiService : ITarkovMarketApiService
     {
-        private readonly TarkovMarketApiService _apiServiceInstance = new TarkovMarketApiService();
+        private static readonly TarkovMarketApiService _apiServiceInstance = new TarkovMarketApiService();
         private static readonly HttpClient Client = new HttpClient();
 
-        public TarkovMarketApiService ApiServiceInstance
+        public static TarkovMarketApiService ApiServiceInstance
         {
             get
             {
