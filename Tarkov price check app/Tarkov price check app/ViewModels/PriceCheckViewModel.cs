@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -18,9 +19,7 @@ namespace Tarkov_price_check_app.ViewModels
         {
             _tarkovMarketApiService = tarkovMarketApiService;
             _nameListHandler = nameListHandler;
-
-            
-            UpdateSavedNamesList();
+            _ = UpdateSavedNamesList();
             GetSavedNamesList();
         }
 
@@ -81,10 +80,11 @@ namespace Tarkov_price_check_app.ViewModels
             var savedResult = _nameListHandler.SavedList;
             ObsItemNames = new ObservableCollection<ItemsListData>(savedResult.Distinct().ToList());
         }
-        private async void UpdateSavedNamesList()
+        private async Task UpdateSavedNamesList()
         {
             var result = await _tarkovMarketApiService.GetAllItemNames();
             _nameListHandler.SavedList = result.ItemNames;
+            Console.WriteLine("222");
         }
 
         public void UpdateSearchText(string text)
