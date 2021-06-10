@@ -19,7 +19,8 @@ namespace Tarkov_price_check_app.ViewModels
             _tarkovMarketApiService = tarkovMarketApiService;
             _nameListHandler = nameListHandler;
 
-            _ = UpdateSavedNamesList();
+            
+            UpdateSavedNamesList();
             GetSavedNamesList();
         }
 
@@ -80,7 +81,7 @@ namespace Tarkov_price_check_app.ViewModels
             var savedResult = _nameListHandler.SavedList;
             ObsItemNames = new ObservableCollection<ItemsListData>(savedResult.Distinct().ToList());
         }
-        private async Task UpdateSavedNamesList()
+        private async void UpdateSavedNamesList()
         {
             var result = await _tarkovMarketApiService.GetAllItemNames();
             _nameListHandler.SavedList = result.ItemNames;
