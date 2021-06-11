@@ -17,7 +17,9 @@ namespace Tarkov_price_check_app.Services
             set
             {
                 var serializedList = Serialize(value);
+                if (!string.IsNullOrEmpty(serializedList)) {
                 Preferences.Set(nameof(SavedList), serializedList);
+                }
             }
         }
 
